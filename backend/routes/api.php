@@ -17,8 +17,26 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('createUser', 'UserController@createUser');
-Route::put('updateUser/{id}', 'UserController@updateUser');
-Route::get('showUser/{id}', 'UserController@showUser');
-Route::get('listUser', 'UserController@listUser');
-Route::delete('deleteUser/{id}', 'UserController@deleteUser');
+
+//
+// Passport Routes
+//
+Route::post('register', 'API\PassportController@register');
+Route::post('login', 'API\PassportController@login');
+
+Route::group(['middleware'=>'auth:api'], function(){
+    Route::get('logout', 'API\PassportController@logout');
+    Route::get('getUserDetails', 'API\PassportController@getDetails');
+});
+
+//
+// CRUD Users
+//
+
+Route::get('user/{id}', 'UserController@showUser');
+Route::get('user', 'UserController@listUser');
+Route::post('user', 'UserController@createUser');
+Route::put('user/{id}', 'UserController@updateUser');
+Route::delete('user/{id}', 'UserController@deleteUser');
+
+

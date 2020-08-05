@@ -5,11 +5,13 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use App\Http\Requests\UserRequest;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -44,6 +46,7 @@ class User extends Authenticatable
         $this->password = bcrypt($request->password);
         $this->photo = $request->photo;
         $this->nicks = $request->nicks;       
+        $this->admin = false;
         $this->save();
     }
     public function updateUser(UserRequest $request)
