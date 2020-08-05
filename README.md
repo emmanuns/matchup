@@ -4,4 +4,4 @@
 
 ## Modelo conceitual
     
-    ![Modelo conceitual](/resources/conceitual_fixo.png)
+    ![Modelo conceitual](resources/conceitual_fixo.png)
