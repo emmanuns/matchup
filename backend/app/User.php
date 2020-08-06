@@ -45,7 +45,8 @@ class User extends Authenticatable
         $this->email = $request->email;
         $this->password = bcrypt($request->password);
         $this->photo = $request->photo;
-        $this->nicks = $request->nicks;       
+        $this->nicks = $request->nicks;
+        $this->gender = $request->gender;        
         $this->admin = false;
         $this->save();
     }
@@ -65,6 +66,12 @@ class User extends Authenticatable
         }  
         if ($request->nicks) {
             $this->nicks = $request->nicks;
+        }
+        if ($request->gender) {
+            $this->gender = $request->gender;
+        }
+        if ($request->admin) {
+            $this->admin = $request->admin;
         }
         $this->save();
     }
