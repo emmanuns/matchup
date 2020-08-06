@@ -33,6 +33,7 @@ class UserRequest extends FormRequest
             422
         ));
     }
+
     public function rules()
     {
         if ($this->isMethod('post')) {
@@ -45,6 +46,7 @@ class UserRequest extends FormRequest
                 'gender' => 'required|string'
             ];
         }
+        
         if ($this->isMethod('put')) {
             return [
                 'username' => 'string|nullable',
@@ -56,6 +58,7 @@ class UserRequest extends FormRequest
             ];
         }
     }
+
     public function messages()
     {
         return [
@@ -68,10 +71,11 @@ class UserRequest extends FormRequest
             'password.required' => 'Digite sua senha!',
             'password.min' => 'Sua senha precisa de no mínimo 6 caracteres!',
             'password.man' => 'Sua senha deve conter no mínimo 12 caracteres!',
-            'photo.string' => 'Precisa ser string!',
-            'nicks.string' => 'Precisa ser string!',
-            'gender.string' => 'Precisa ser string!',
+            'photo.string' => 'Photo precisa ser string!',
+            'nicks.string' => 'Nicks precisa ser string!',
+            'gender.string' => 'Gênero precisa ser string!',
             'gender.required' => 'Informe seu gênero!'
         ];
     }
+
 }

@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('photo')->nullable();
             $table->string('nicks')->nullable();
             $table->string('gender')->nullable();
-            $table->boolean('admin')->nullable(); 
+            $table->boolean('admin');
             $table->rememberToken();
             $table->timestamps();
         });

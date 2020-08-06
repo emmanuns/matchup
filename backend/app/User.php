@@ -39,6 +39,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
     public function createUser(UserRequest $request)
     {
         $this->username = $request->username;        
@@ -50,8 +51,15 @@ class User extends Authenticatable
         $this->admin = false;
         $this->save();
     }
-    public function updateUser(UserRequest $request)
+
+    public function updateUser(UserRequest $request, $id)
     {
+        $user = User::findOrFail($id);
+        
+        if($user == null) {
+            return response()->json('Usuário não encontrado.', 404);
+        }
+
         if ($request->username) {
             $this->username = $request->username;
         }
@@ -75,4 +83,31 @@ class User extends Authenticatable
         }
         $this->save();
     }
+
+    public function show($id)
+    {
+        
+        $user = User::findOrFail($id);
+        if($user == null) {
+            return response()->json('Usuário não encontrado.', 404);
+        }
+        
+        return $user;
+    }
+
+    public function list()
+    {
+        return $this->all();
+    }
+
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        if($user == null) {
+            return response()->json('Usuário não encontrado', 404);
+        }
+        User::destroy($id);
+        return response()->json("Usuário " . $id . " deletado", 202);
+    }
+
 }
