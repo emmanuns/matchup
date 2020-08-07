@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Http\Requests\UserRequest;
+use App\Post;
 
 class User extends Authenticatable
 {
@@ -39,15 +40,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
     public function createUser(UserRequest $request)
     {
-        $this->username = $request->username;        
+        $this->username = $request->username;
         $this->email = $request->email;
         $this->password = bcrypt($request->password);
         $this->photo = $request->photo;
         $this->nicks = $request->nicks;
-        $this->gender = $request->gender;        
+        $this->gender = $request->gender;
         $this->admin = false;
         $this->save();
     }
@@ -55,10 +59,6 @@ class User extends Authenticatable
     public function updateUser(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
-        
-        if($user == null) {
-            return response()->json('Usuário não encontrado.', 404);
-        }
 
         if ($request->username) {
             $this->username = $request->username;
@@ -71,7 +71,7 @@ class User extends Authenticatable
         }
         if ($request->photo) {
             $this->photo = $request->photo;
-        }  
+        }
         if ($request->nicks) {
             $this->nicks = $request->nicks;
         }
@@ -80,18 +80,14 @@ class User extends Authenticatable
         }
 
         $this->admin = false;
-        
+
         $this->save();
     }
 
     public function showUser($id)
     {
-        
+
         $user = User::findOrFail($id);
-        if($user == null) {
-            return response()->json('Usuário não encontrado.', 404);
-        }
-        
         return $user;
     }
 
@@ -102,12 +98,7 @@ class User extends Authenticatable
 
     public function deleteUser($id)
     {
-        $user = User::findOrFail($id);
-        if($user == null) {
-            return response()->json('Usuário não encontrado', 404);
-        }
+        $user = User::findOrFail($id);       
         User::destroy($id);
-        return response()->json("Usuário " . $id . " deletado", 202);
     }
-
 }

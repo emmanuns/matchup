@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\User;
 
@@ -40,6 +39,7 @@ class UserController extends Controller
     {
         $user = new User;
         $user->deleteUser($id);
-        return response()->json(['Usuário deletado!'], 202);
+
+        return response()->json("Usuário ".$id." deletado", 202);
     }
 }

@@ -30,13 +30,21 @@ Route::group(['middleware'=>'auth:api'], function(){
 });
 
 //
-// CRUD Users
+// DEV CRUD Users
 //
 
-Route::get('user/{id}', 'UserController@showUser');
-Route::get('user', 'UserController@listUsers');
-Route::post('user', 'UserController@createUser');
-Route::put('user/{id}', 'UserController@updateUser');
-Route::delete('user/{id}', 'UserController@deleteUser');
+Route::get('dev/user/{id}', 'UserController@showUser');
+Route::get('dev/user', 'UserController@listUsers');
+Route::post('dev/user', 'UserController@createUser');
+Route::put('dev/user/{id}', 'UserController@updateUser');
+Route::delete('dev/user/{id}', 'UserController@deleteUser');
 
+//
+// DEV CRUD Posts
+//
 
+Route::get('dev/post/{id}', 'PostController@showPost');
+Route::get('dev/post', 'PostController@listPosts');
+Route::post('dev/post', 'PostController@createPost');
+Route::put('dev/post/{id}', 'PostController@updatePost');
+Route::delete('dev/post/{id}', 'PostController@deletePost');
