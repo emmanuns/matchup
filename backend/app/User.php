@@ -39,18 +39,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
     public function createUser(UserRequest $request)
     {
         $this->username = $request->username;        
         $this->email = $request->email;
         $this->password = bcrypt($request->password);
         $this->photo = $request->photo;
-        $this->nicks = $request->nicks;       
+        $this->nicks = $request->nicks;
+        $this->gender = $request->gender;        
         $this->admin = false;
         $this->save();
     }
-    public function updateUser(UserRequest $request)
+
+    public function updateUser(UserRequest $request, $id)
     {
+        $user = User::findOrFail($id);
+        
+        if($user == null) {
+            return response()->json('Usuário não encontrado.', 404);
+        }
+
         if ($request->username) {
             $this->username = $request->username;
         }
@@ -66,6 +75,39 @@ class User extends Authenticatable
         if ($request->nicks) {
             $this->nicks = $request->nicks;
         }
+        if ($request->gender) {
+            $this->gender = $request->gender;
+        }
+
+        $this->admin = false;
+        
         $this->save();
     }
+
+    public function showUser($id)
+    {
+        
+        $user = User::findOrFail($id);
+        if($user == null) {
+            return response()->json('Usuário não encontrado.', 404);
+        }
+        
+        return $user;
+    }
+
+    public function listUsers()
+    {
+        return $this->all();
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        if($user == null) {
+            return response()->json('Usuário não encontrado', 404);
+        }
+        User::destroy($id);
+        return response()->json("Usuário " . $id . " deletado", 202);
+    }
+
 }

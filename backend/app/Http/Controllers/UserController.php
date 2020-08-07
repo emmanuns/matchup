@@ -12,27 +12,34 @@ class UserController extends Controller
     {
         $user = new User;
         $user->createUser($request);
-        return response()->json($user);
+        return response()->json($user, 201);
     }
+
     public function showUser($id)
     {
-        $user = User::findOrFail($id);
-        return response()->json($user);
+        $user = new User;
+        $user = $user->showUser($id);
+        return response()->json($user, 200);
     }
-    public function listUser()
+
+    public function listUsers()
     {
-        $user = User::all();
-        return response()->json([$user]);
+        $users = new User;
+        $users = $users->listUsers();
+        return response()->json([$users], 200);
     } 
+
     public function updateUser(UserRequest $request, $id)
     {
-        $user = User::findOrFail($id);
-        $user->updateUser($request);
-        return response()->json($user);
+        $user = new User;
+        $user->updateUser($request, $id);
+        return response()->json($user, 200);
     }
+
     public function deleteUser($id)
     {
-        User::destroy($id);
-        return response()->json(['Usuário deletado!']);
+        $user = new User;
+        $user->deleteUser($id);
+        return response()->json(['Usuário deletado!'], 202);
     }
 }
