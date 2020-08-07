@@ -78,8 +78,8 @@ class User extends Authenticatable
         if ($request->gender) {
             $this->gender = $request->gender;
         }
-
-        $this->admin = false;
+        
+        $this->admin = $request->admin;
         
         $this->save();
     }
