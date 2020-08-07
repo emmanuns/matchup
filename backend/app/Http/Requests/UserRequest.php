@@ -43,7 +43,8 @@ class UserRequest extends FormRequest
                 'password' => 'min:6|max:12|required',
                 'photo' => 'string|nullable',
                 'nicks' => 'string|nullable',
-                'gender' => 'required|string'
+                'gender' => 'required|string',
+                'admin' => 'boolean|nullable',
             ];
         }
         
@@ -54,7 +55,8 @@ class UserRequest extends FormRequest
                 'password' => 'nullable|nullable',
                 'photo' => 'string|nullable',
                 'nicks' => 'string|nullable',
-                'gender' => 'string|nullable'
+                'gender' => 'string|nullable',
+                'admin' => 'boolean|nullable',
             ];
         }
     }

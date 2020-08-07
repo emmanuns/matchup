@@ -78,13 +78,13 @@ class User extends Authenticatable
         if ($request->gender) {
             $this->gender = $request->gender;
         }
-        if ($request->admin) {
-            $this->admin = $request->admin;
-        }
+
+        $this->admin = false;
+        
         $this->save();
     }
 
-    public function show($id)
+    public function showUser($id)
     {
         
         $user = User::findOrFail($id);
@@ -95,12 +95,12 @@ class User extends Authenticatable
         return $user;
     }
 
-    public function list()
+    public function listUsers()
     {
         return $this->all();
     }
 
-    public function delete($id)
+    public function deleteUser($id)
     {
         $user = User::findOrFail($id);
         if($user == null) {

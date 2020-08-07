@@ -18,14 +18,14 @@ class UserController extends Controller
     public function showUser($id)
     {
         $user = new User;
-        $user = $user->show($id);
+        $user = $user->showUser($id);
         return response()->json($user, 200);
     }
 
-    public function listUser()
+    public function listUsers()
     {
         $users = new User;
-        $users = $users->list();
+        $users = $users->listUsers();
         return response()->json([$users], 200);
     } 
 
@@ -39,7 +39,7 @@ class UserController extends Controller
     public function deleteUser($id)
     {
         $user = new User;
-        $user->delete($id);
+        $user->deleteUser($id);
         return response()->json(['Usuário deletado!'], 202);
     }
 }

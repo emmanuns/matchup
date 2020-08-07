@@ -34,7 +34,7 @@ Route::group(['middleware'=>'auth:api'], function(){
 //
 
 Route::get('user/{id}', 'UserController@showUser');
-Route::get('user', 'UserController@listUser');
+Route::get('user', 'UserController@listUsers');
 Route::post('user', 'UserController@createUser');
 Route::put('user/{id}', 'UserController@updateUser');
 Route::delete('user/{id}', 'UserController@deleteUser');
