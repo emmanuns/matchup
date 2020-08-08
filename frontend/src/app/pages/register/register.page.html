@@ -1,9 +1,53 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form [formGroup]="registerForm" (ngSubmit)="submitRegister(registerForm)">
+    <ion-list inset=true lines="full">
+      <ion-item>
+        <ion-label position="floating">Nome de usuário</ion-label>
+        <ion-input type="text" inputmode="text" formControlName="username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input type="email" inputmode="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <div class="ion-margin-vertical">
+      <ion-radio-group formControlName="gender">
+        <ion-list-header>
+          <ion-label>Gênero</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Masculino</ion-label>
+          <ion-radio value="masculine"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Feminino</ion-label>
+          <ion-radio value="feminine"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Outro</ion-label>
+          <ion-radio value="other"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+      </div>
+      <ion-row class="ion-justify-content-center ion-margin-top">
+        <ion-col size="auto">
+          <ion-button type="submit" color="secondary" shape="round" [disabled]="registerForm.invalid">
+            Cadastrar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </form>
 </ion-content>
