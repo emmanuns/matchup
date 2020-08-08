@@ -48,3 +48,10 @@ Route::get('dev/post', 'PostController@listPosts');
 Route::post('dev/post', 'PostController@createPost');
 Route::put('dev/post/{id}', 'PostController@updatePost');
 Route::delete('dev/post/{id}', 'PostController@deletePost');
+
+//
+// Seguir
+//
+
+Route::put('follow/{following_id}/{follower_id}', 'UserController@follow');
+Route::put('unfollow/{following_id}/{follower_id}', 'UserController@unfollow');

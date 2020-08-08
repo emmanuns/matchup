@@ -38,8 +38,21 @@ class UserController extends Controller
     public function deleteUser($id)
     {
         $user = new User;
-        $user->deleteUser($id);
+        $user = $user->deleteUser($id);
 
-        return response()->json("Usuário ".$id." deletado", 202);
+        return response()->json($user, 202);
+    }
+
+    public function follow($following_id, $follower_id)
+    {   
+        $following = new User;     
+        $response = $following->follow($following_id, $follower_id);
+        return response()->json($response);
+    }
+    public function unfollow($following_id, $follower_id)
+    {   
+        $following = new User;     
+        $response = $following->unfollow($following_id, $follower_id);
+        return response()->json($response);
     }
 }

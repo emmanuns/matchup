@@ -44,6 +44,16 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Post');
     }
+
+    public function following()
+    {
+        return $this->belongsToMany('App\User', 'follow_user', 'following_id', 'follower_id');
+    }
+    public function followers()
+    {
+        return $this->belongsToMany('App\User', 'follow_user', 'follower_id', 'following_id');
+    }
+
     public function createUser(UserRequest $request)
     {
         $this->username = $request->username;
@@ -98,7 +108,43 @@ class User extends Authenticatable
 
     public function deleteUser($id)
     {
-        $user = User::findOrFail($id);       
+        $user = User::findOrFail($id);
         User::destroy($id);
+        return ('Usuário ' . $id . ' deletado!');
+    }
+
+    public function follow($following_id, $follower_id)
+    {
+        if ($following_id <> $follower_id) {
+            $following = User::findOrFail($following_id);
+            $count = $following->following()->count();
+            $following->following()->sync($follower_id, false);
+            $count_after = $following->following()->count();
+
+            if ($count == $count_after) {
+                return ('Você já segue o: ' . $follower_id . ' !');
+            } else {
+                return ('Você seguiu o: ' . $follower_id . ' !');
+            }
+        } else {
+            return ('Você não pode seguir a si mesmo!');
+        }
+    }
+    public function unfollow($following_id, $follower_id)
+    {
+        if ($following_id <> $follower_id) {
+            $following = User::findOrFail($following_id);
+            $count = $following->following()->count();
+            $following->following()->detach($follower_id);
+            $count_after = $following->following()->count();
+
+            if ($count > $count_after) {
+                return ('Você não segue o: ' . $follower_id . ' !');
+            } else {
+                return ('Você já não segue mais o: ' . $follower_id . ' !');
+            }
+        } else {
+            return ('Você não pode não seguir a si mesmo!');
+        }
     }
 }
