@@ -8,23 +8,25 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="loginForm" (ngSubmit)="submitLogin(loginForm)">
-    <ion-list inset=true lines="full">
-      <ion-item>
-        <ion-label position="floating">E-mail</ion-label>
-        <ion-input type="email" inputmode="email" formControlName="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Senha</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
-      </ion-item>
-      <ion-row class="ion-justify-content-center ion-margin-top">
-        <ion-col size="auto">
-          <ion-button type="submit" color="secondary" shape="round" [disabled]="loginForm.invalid">
-            Entrar
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-list>
-  </form>
+  <div class="center">
+    <form [formGroup]="loginForm" (ngSubmit)="submitLogin(loginForm)">
+      <ion-list inset=true lines="full">
+        <ion-item>
+          <ion-label position="floating">E-mail</ion-label>
+          <ion-input type="email" inputmode="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Senha</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-row class="ion-justify-content-center ion-margin-top">
+          <ion-col size="auto">
+            <ion-button type="submit" color="secondary" shape="round" [disabled]="loginForm.invalid">
+              Entrar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </form>
+  </div>
 </ion-content>
