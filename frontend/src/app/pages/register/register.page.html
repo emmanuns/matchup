@@ -22,7 +22,6 @@
         <ion-label position="floating">Senha</ion-label>
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
-      <div class="ion-margin-vertical">
       <ion-radio-group formControlName="gender">
         <ion-list-header>
           <ion-label>Gênero</ion-label>
@@ -40,7 +39,6 @@
           <ion-radio value="other"></ion-radio>
         </ion-item>
       </ion-radio-group>
-      </div>
       <ion-row class="ion-justify-content-center ion-margin-top">
         <ion-col size="auto">
           <ion-button type="submit" color="secondary" shape="round" [disabled]="registerForm.invalid">
