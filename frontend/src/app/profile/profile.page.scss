@@ -1,0 +1,19 @@
+.user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.username {
+    padding: 2%;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+}
+
+h3 {
+    padding: 2%;
+    font-size: 1.1em;
+}
