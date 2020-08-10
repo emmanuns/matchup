@@ -61,3 +61,4 @@ Route::put('unfollow/{following_id}/{follower_id}', 'UserController@unfollow');
 //
 
 Route::put('like/{user_id}/{post_id}', 'UserController@like');
+Route::put('unlike/{user_id}/{post_id}', 'UserController@unlike');

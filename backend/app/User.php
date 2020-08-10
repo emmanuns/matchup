@@ -153,15 +153,28 @@ class User extends Authenticatable
     }
     public function like($user_id, $post_id)
     {
-        $following = User::findOrFail($user_id);
-        $count = $following->following()->count();
-        $following->liking()->syncWithoutDetaching($post_id);
-        $count_after = $following->following()->count();
+        $liking = User::findOrFail($user_id);
+        $count = $liking->liking()->count();
+        $liking->liking()->syncWithoutDetaching($post_id);
+        $count_after = $liking->liking()->count();
         
         if ($count == $count_after) {
             return ('Você já curtiu o post ' . $post_id . ' !');
         } else {
             return ('Você curtiu o post ' . $post_id . ' !');
+        }
+    }
+    public function unlike($user_id, $post_id)
+    {
+        $liking = User::findOrFail($user_id);
+        $count = $liking->liking()->count();
+        $liking->liking()->detach($post_id);
+        $count_after = $liking->liking()->count();
+        
+        if ($count > $count_after) {
+            return ('Você descurtiu o post ' . $post_id . ' !');
+        } else {
+            return ('Você já descurtiu o post ' . $post_id . ' !');
         }
     }
 }

@@ -49,16 +49,27 @@ class UserController extends Controller
         $response = $following->follow($following_id, $follower_id);
         return response()->json($response);
     }
+
     public function unfollow($following_id, $follower_id)
     {   
         $following = new User;     
         $response = $following->unfollow($following_id, $follower_id);
         return response()->json($response);
     }
+
     public function like($user_id, $post_id)
     {   
         $liking = new User;     
         $response = $liking->like($user_id, $post_id);
         return response()->json($response);
     }
+
+    public function unlike($user_id, $post_id)
+    {   
+        $liking = new User;     
+        $response = $liking->unlike($user_id, $post_id);
+        return response()->json($response);
+    }
+
+
 }
