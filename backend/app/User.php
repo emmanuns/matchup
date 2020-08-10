@@ -44,6 +44,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Post');
     }
+    public function liking()
+    {
+        return $this->belongsToMany('App\Post');
+    }
 
     public function following()
     {
@@ -118,13 +122,13 @@ class User extends Authenticatable
         if ($following_id <> $follower_id) {
             $following = User::findOrFail($following_id);
             $count = $following->following()->count();
-            $following->following()->sync($follower_id, false);
+            $following->following()->syncWithoutDetaching($follower_id);
             $count_after = $following->following()->count();
 
             if ($count == $count_after) {
-                return ('Você já segue o: ' . $follower_id . ' !');
+                return ('Você já segue o ' . $follower_id . ' !');
             } else {
-                return ('Você seguiu o: ' . $follower_id . ' !');
+                return ('Você seguiu o ' . $follower_id . ' !');
             }
         } else {
             return ('Você não pode seguir a si mesmo!');
@@ -139,12 +143,25 @@ class User extends Authenticatable
             $count_after = $following->following()->count();
 
             if ($count > $count_after) {
-                return ('Você não segue o: ' . $follower_id . ' !');
+                return ('Você não segue mais o ' . $follower_id . ' !');
             } else {
-                return ('Você já não segue mais o: ' . $follower_id . ' !');
+                return ('Você já não segue mais o ' . $follower_id . ' !');
             }
         } else {
             return ('Você não pode não seguir a si mesmo!');
+        }
+    }
+    public function like($user_id, $post_id)
+    {
+        $following = User::findOrFail($user_id);
+        $count = $following->following()->count();
+        $following->liking()->syncWithoutDetaching($post_id);
+        $count_after = $following->following()->count();
+        
+        if ($count == $count_after) {
+            return ('Você já curtiu o post ' . $post_id . ' !');
+        } else {
+            return ('Você curtiu o post ' . $post_id . ' !');
         }
     }
 }

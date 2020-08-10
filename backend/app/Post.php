@@ -13,6 +13,11 @@ class Post extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function userLikes()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
     public function createPost(PostRequest $request)
     {
         $this->text = $request->text;

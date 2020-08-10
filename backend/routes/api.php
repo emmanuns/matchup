@@ -50,8 +50,14 @@ Route::put('dev/post/{id}', 'PostController@updatePost');
 Route::delete('dev/post/{id}', 'PostController@deletePost');
 
 //
-// Seguir
+// Seguir outros usuários
 //
 
 Route::put('follow/{following_id}/{follower_id}', 'UserController@follow');
 Route::put('unfollow/{following_id}/{follower_id}', 'UserController@unfollow');
+
+//
+// Curtir posts
+//
+
+Route::put('like/{user_id}/{post_id}', 'UserController@like');
