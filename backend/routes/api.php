@@ -69,7 +69,13 @@ Route::put('unfollow/{following_id}/{follower_id}', 'UserController@unfollow');
 //
 // Publicar posts
 //
+
 Route::post('publishPost/{id}', 'UserController@publishPost');
+
+//
+// Comentar posts
+//
+Route::post('commentPost/{user_id}/{post_id}', 'UserController@commentPost');
 
 //
 // Curtir posts

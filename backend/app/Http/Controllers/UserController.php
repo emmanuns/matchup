@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\PostRequest;
+use App\Http\Requests\CommentPostRequest;
 use App\User;
 use App\Post;
+use App\CommentPost;
 
 class UserController extends Controller
 {
@@ -64,6 +66,14 @@ class UserController extends Controller
         $post->createPost($request);
         $post->publishPost($id);
         return response()->json($post);
+    }
+
+    public function commentPost(CommentPostRequest $request, $user_id, $post_id)
+    {
+      $comment = new CommentPost;
+      $comment->createCommentPost($request);
+      $comment->commentPost($user_id, $post_id);
+      return response()->json($comment);
     }
 
     public function like($user_id, $post_id)
