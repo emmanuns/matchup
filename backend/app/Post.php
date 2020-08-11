@@ -17,7 +17,7 @@ class Post extends Model
     {
         return $this->belongsToMany('App\User', 'like_post_user');
     }
-    
+
     public function userComment()
     {
         return $this->belongsToMany('App\User', 'comment_posts');
@@ -30,14 +30,12 @@ class Post extends Model
     }
 
     public function updatePost(PostRequest $request, $id)
-    {
-        $post = Post::findOrFail($id);
-       
+    {       
         if ($request->text) {
             $this->text = $request->text;
         }
 
-        $this->save();
+        $this->save();     
     }
 
     public function showPost($id)
@@ -53,8 +51,8 @@ class Post extends Model
 
     public function deletePost($id)
     {
-        $post = Post::findOrFail($id);        
-        Post::destroy($id);       
+        $post = Post::findOrFail($id);
+        Post::destroy($id);
     }
 
     //Buscar e salvar id do usuário    
@@ -62,6 +60,6 @@ class Post extends Model
     {
         User::findOrFail($id);
         $this->user_id = $id;
-        $this->save();   
+        $this->save();
     }
 }

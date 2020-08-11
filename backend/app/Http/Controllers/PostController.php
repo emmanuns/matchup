@@ -29,9 +29,9 @@ class PostController extends Controller
     } 
 
     public function updatePost(PostRequest $request, $id)
-    {
-        $post = new Post;
-        $post->updatePost($request, $id);
+    {   
+        $post = Post::findOrFail($id);
+        $post->updatePost($request);
         return response()->json($post, 200);
     }
 

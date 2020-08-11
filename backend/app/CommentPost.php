@@ -15,10 +15,8 @@ class CommentPost extends Model
         $this->save();
     }
 
-    public function updateCommentPost(CommentPostRequest $request, $id)
+    public function updateCommentPost(CommentPostRequest $request)
     {
-        $comment = CommentPost::findOrFail($id);
-
         if ($request->text) {
             $this->text = $request->text;
         }

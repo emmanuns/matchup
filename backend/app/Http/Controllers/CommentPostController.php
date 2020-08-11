@@ -30,8 +30,8 @@ class CommentPostController extends Controller
 
     public function updateCommentPost(CommentPostRequest $request, $id)
     {
-        $comment = new CommentPost;
-        $comment->updateCommentPost($request, $id);
+        $comment = CommentPost::findOrFail($id);
+        $comment->updateCommentPost($request);
         return response()->json($comment, 200);
     }
 
