@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function liking()
     {
-        return $this->belongsToMany('App\Post');
+        return $this->belongsToMany('App\Post', 'like_post_user');
     }
 
     public function following()
@@ -63,7 +63,7 @@ class User extends Authenticatable
 
     public function commenting()
     {
-        return $this->belongsToMany('App\Post', 'comments');
+        return $this->belongsToMany('App\Post', 'comment_posts');
     }
 
     public function createUser(UserRequest $request)

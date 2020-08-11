@@ -53,11 +53,11 @@ Route::delete('dev/post/{id}', 'PostController@deletePost');
 // DEV CRUD Comments
 //
 
-Route::get('dev/comment/{id}', 'CommentController@showComment');
-Route::get('dev/comment', 'CommentController@listComments');
-Route::post('dev/comment', 'CommentController@createComment');
-Route::put('dev/comment/{id}', 'CommentController@updateComment');
-Route::delete('dev/comment/{id}', 'CommentController@deleteComment');
+Route::get('dev/commentPost/{id}', 'CommentPostController@showCommentPost');
+Route::get('dev/commentPost', 'CommentPostController@listCommentsPost');
+Route::post('dev/commentPost', 'CommentPostController@createCommentPost');
+Route::put('dev/commentPost/{id}', 'CommentPostController@updateCommentPost');
+Route::delete('dev/commentPost/{id}', 'CommentPostController@deleteCommentPost');
 
 //
 // Seguir outros usuários
@@ -67,8 +67,15 @@ Route::put('follow/{following_id}/{follower_id}', 'UserController@follow');
 Route::put('unfollow/{following_id}/{follower_id}', 'UserController@unfollow');
 
 //
+// Publicar posts
+//
+Route::post('publishPost/{id}', 'UserController@publishPost');
+
+//
 // Curtir posts
 //
 
 Route::put('like/{user_id}/{post_id}', 'UserController@like');
 Route::put('unlike/{user_id}/{post_id}', 'UserController@unlike');
+
+

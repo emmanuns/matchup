@@ -15,12 +15,12 @@ class Post extends Model
 
     public function userLikes()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User', 'like_post_user');
     }
     
     public function userComment()
     {
-        return $this->belongsToMany('App\User', 'comments');
+        return $this->belongsToMany('App\User', 'comment_posts');
     }
 
     public function createPost(PostRequest $request)
@@ -55,5 +55,13 @@ class Post extends Model
     {
         $post = Post::findOrFail($id);        
         Post::destroy($id);       
+    }
+
+    //Buscar e salvar id do usuário    
+    public function publishPost($id)
+    {
+        User::findOrFail($id);
+        $this->user_id = $id;
+        $this->save();   
     }
 }
