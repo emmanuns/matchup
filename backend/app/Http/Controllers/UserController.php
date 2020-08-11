@@ -30,7 +30,7 @@ class UserController extends Controller
 
     public function updateUser(UserRequest $request, $id)
     {
-        $user = new User;
+        $user = User::findOrFail($id);
         $user->updateUser($request, $id);
         return response()->json($user, 200);
     }
@@ -39,7 +39,6 @@ class UserController extends Controller
     {
         $user = new User;
         $user = $user->deleteUser($id);
-
         return response()->json($user, 202);
     }
 

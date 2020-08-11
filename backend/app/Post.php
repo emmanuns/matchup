@@ -17,6 +17,11 @@ class Post extends Model
     {
         return $this->belongsToMany('App\User');
     }
+    
+    public function userComment()
+    {
+        return $this->belongsToMany('App\User', 'comments');
+    }
 
     public function createPost(PostRequest $request)
     {

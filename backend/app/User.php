@@ -40,10 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function posts()
     {
         return $this->hasMany('App\Post');
     }
+
     public function liking()
     {
         return $this->belongsToMany('App\Post');
@@ -53,9 +55,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\User', 'follow_user', 'following_id', 'follower_id');
     }
+
     public function followers()
     {
         return $this->belongsToMany('App\User', 'follow_user', 'follower_id', 'following_id');
+    }
+
+    public function commenting()
+    {
+        return $this->belongsToMany('App\Post', 'comments');
     }
 
     public function createUser(UserRequest $request)
@@ -72,8 +80,6 @@ class User extends Authenticatable
 
     public function updateUser(UserRequest $request, $id)
     {
-        $user = User::findOrFail($id);
-
         if ($request->username) {
             $this->username = $request->username;
         }
@@ -92,10 +98,8 @@ class User extends Authenticatable
         if ($request->gender) {
             $this->gender = $request->gender;
         }
-
-        $this->admin = false;
-
-        $this->save();
+        
+        $this->save();     
     }
 
     public function showUser($id)
@@ -134,6 +138,7 @@ class User extends Authenticatable
             return ('Você não pode seguir a si mesmo!');
         }
     }
+
     public function unfollow($following_id, $follower_id)
     {
         if ($following_id <> $follower_id) {
@@ -151,6 +156,7 @@ class User extends Authenticatable
             return ('Você não pode não seguir a si mesmo!');
         }
     }
+
     public function like($user_id, $post_id)
     {
         $liking = User::findOrFail($user_id);
@@ -164,6 +170,7 @@ class User extends Authenticatable
             return ('Você curtiu o post ' . $post_id . ' !');
         }
     }
+    
     public function unlike($user_id, $post_id)
     {
         $liking = User::findOrFail($user_id);

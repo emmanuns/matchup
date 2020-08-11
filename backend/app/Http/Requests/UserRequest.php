@@ -9,7 +9,7 @@ use App\User;
 
 
 class UserRequest extends FormRequest
-{  
+{
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -47,16 +47,16 @@ class UserRequest extends FormRequest
                 'admin' => 'boolean|nullable',
             ];
         }
-        
+
         if ($this->isMethod('put')) {
             return [
-                'username' => 'string|nullable',
-                'email' => 'email|unique:Users,email|nullable',
-                'password' => 'nullable|nullable',
-                'photo' => 'string|nullable',
-                'nicks' => 'string|nullable',
-                'gender' => 'string|nullable',
-                'admin' => 'boolean|nullable',
+                'username' => 'string|unique:Users,username',
+                'email' => 'email|unique:Users,email',
+                'password' => 'min:6|max:12',
+                'photo' => 'string',
+                'nicks' => 'string',
+                'gender' => 'string',
+                'admin' => 'boolean',
             ];
         }
     }
@@ -79,5 +79,4 @@ class UserRequest extends FormRequest
             'gender.required' => 'Informe seu gênero!'
         ];
     }
-
 }

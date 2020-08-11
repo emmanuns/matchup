@@ -50,6 +50,16 @@ Route::put('dev/post/{id}', 'PostController@updatePost');
 Route::delete('dev/post/{id}', 'PostController@deletePost');
 
 //
+// DEV CRUD Comments
+//
+
+Route::get('dev/comment/{id}', 'CommentController@showComment');
+Route::get('dev/comment', 'CommentController@listComments');
+Route::post('dev/comment', 'CommentController@createComment');
+Route::put('dev/comment/{id}', 'CommentController@updateComment');
+Route::delete('dev/comment/{id}', 'CommentController@deleteComment');
+
+//
 // Seguir outros usuários
 //
 

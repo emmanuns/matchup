@@ -37,8 +37,8 @@ class PostController extends Controller
 
     public function deletePost($id)
     {
-        $Post = new Post;
-        $Post->deletePost($id);
-        return response()->json("Post ".$id." deletado", 202);
+        $post = new Post;
+        $post->deletePost($id);
+        return response()->json("Post ".$id." deletado!", 202);
     }
 }
