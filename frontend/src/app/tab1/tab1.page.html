@@ -12,6 +12,11 @@
       <app-card-posts [post]="post"></app-card-posts>
     </div>
   </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/posting">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-infinite-scroll (ionInfinite)="loadPosts($event)">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
