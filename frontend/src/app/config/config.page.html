@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>config</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let profile of profile">
+    <div class="user">
+      <img class="photo" [src]="profile.photo"/>
+      <ion-card-title class="name">{{profile.username}}</ion-card-title>
+    </div>
+    <div class="info">
+      <h3>Following {{profile.following}}</h3>
+      <h3>Followers {{profile.followers}}</h3>
+    </div>
+  </ion-card>
+
+  <ion-card>
+    <div class="profile">
+      <img src="../assets/icon-profile.svg" />
+      <h2>Perfil</h2>
+    </div>
+    <div class="games">
+      <img src="../assets/icon-gamepad.svg" />
+      <h2>Meus Jogos</h2>
+    </div>
+    <div class="friends">
+      <img src="../assets/icon-friends.svg" />
+      <h2>Amigos</h2>
+    </div>
+    <div class="saved">
+      <img src="../assets/icon-save.svg" />
+      <h2>Itens Salvos</h2>
+    </div>
+    <div class="comunity">
+      <img src="../assets/icon-comunity.svg" />
+      <h2>Comunidades</h2>
+    </div>
+    <IonItemDivider color="danger"><IonLabel></IonLabel></IonItemDivider>
+    <div class="look">
+      <img src="../assets/icon-palette.svg" />
+      <h2>Aparência</h2>
+    </div>
+    <div class="config">
+      <img src="../assets/icon-account.svg" />
+      <h2>Configurações de Conta</h2>
+    </div>
+    <div class="help">
+      <img src="../assets/icon-help.svg" />
+      <h2>Ajuda</h2>
+    </div>
+    <div class="power">
+      <img src="../assets/icon-power.svg" />
+      <h2>Desconectar</h2>
+    </div>
+  </ion-card>
+</ion-content>
