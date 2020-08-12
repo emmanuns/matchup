@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button icon="close"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Comentário</ion-title>
+    <ion-buttons slot="end">
+      <ion-button type="submit"
+                  (click)="commentForm.valid && submitComment(commentForm)"
+                  [disabled]="!commentForm.valid"
+      >Comentar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="commentForm" (ngSubmit)="submitComment(commentForm)">
+    <ion-textarea type="text"
+                  formControlName="text"
+                  inputmode="text"
+                  placeholder="Digite seu comentário"
+                  autoGrow=true
+    ></ion-textarea>
+  </form>
+</ion-content>
