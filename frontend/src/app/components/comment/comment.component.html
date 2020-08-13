@@ -1,0 +1,13 @@
+<ion-card>
+  <ion-card-header>
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-img [src]=comment.user_photo></ion-img>
+      </ion-avatar>
+      <ion-label>{{comment.user_name}}</ion-label>
+    </ion-item>
+  </ion-card-header>
+  <ion-card-content>
+    {{comment.text}}
+  </ion-card-content>
+</ion-card>

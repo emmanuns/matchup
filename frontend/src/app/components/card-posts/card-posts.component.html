@@ -1,0 +1,29 @@
+<ion-card routerLink="/comments">
+  <ion-card-header>
+      <ion-item lines="full">
+        <ion-avatar slot="start">
+          <ion-img [src]=post.user_photo></ion-img>
+        </ion-avatar>
+        <ion-col>
+        <ion-label>{{post.user_name}}</ion-label>
+        <ion-card-title>{{post.tags}}</ion-card-title>
+        </ion-col>
+      </ion-item>
+  </ion-card-header>
+  <ion-card-content>
+    {{post.text}}
+    <ion-toolbar>
+      <ion-buttons class="ion-justify-content-between">
+        <ion-button>
+          <ion-icon name="bookmark-outline"></ion-icon>
+        </ion-button>
+        <ion-button routerLink="/comments">
+          <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+        </ion-button>
+        <ion-button>
+          <ion-icon name="heart-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card-content>
+</ion-card>

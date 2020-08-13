@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Comentários</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-card-posts [post]="post"></app-card-posts>
+  <ion-list>
+    <div *ngFor="let comment of comments">
+      <app-comment [comment]="comment"></app-comment>
+    </div>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/commenting">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-infinite-scroll (ionInfinite)="loadComments($event)">
+    <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Carregando mais comentários..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

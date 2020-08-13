@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button icon="close"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Post</ion-title>
+    <ion-buttons slot="end">
+      <ion-button type="submit"
+                  (click)="postForm.valid && submitPost(postForm)"
+                  [disabled]="!postForm.valid"
+      >Postar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="postForm" (ngSubmit)="submitPost(postForm)">
+    <ion-item>
+      <ion-label position="floating">Gametag</ion-label>
+      <ion-input type="text" inputmode="text" formControlName="gametag"></ion-input>
+    </ion-item>
+    <ion-textarea type="text"
+                  formControlName="text"
+                  inputmode="text"
+                  placeholder="Digite seu post..."
+                  autoGrow=true
+    ></ion-textarea>
+  </form>
+</ion-content>
