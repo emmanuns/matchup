@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\PostRequest;
+use App\Http\Requests\CommentPostRequest;
 use App\User;
+use App\Post;
+use App\CommentPost;
+use Auth;
 
 class UserController extends Controller
 {
@@ -27,19 +31,63 @@ class UserController extends Controller
         $users = new User;
         $users = $users->listUsers();
         return response()->json([$users], 200);
-    } 
+    }
 
     public function updateUser(UserRequest $request, $id)
     {
-        $user = new User;
-        $user->updateUser($request, $id);
+        $user = User::findOrFail($id);
+        $user->updateUser($request);
         return response()->json($user, 200);
     }
 
     public function deleteUser($id)
     {
         $user = new User;
-        $user->deleteUser($id);
-        return response()->json(['Usuário deletado!'], 202);
+        $user = $user->deleteUser($id);
+        return response()->json($user, 202);
+    }
+
+    public function follow($following_id, $follower_id)
+    {
+        $following = new User;
+        $response = $following->follow($following_id, $follower_id);
+        return response()->json($response);
+    }
+
+    public function unfollow($following_id, $follower_id)
+    {
+        $following = new User;
+        $response = $following->unfollow($following_id, $follower_id);
+        return response()->json($response);
+    }
+
+    public function publishPost(PostRequest $request, $id)
+    {
+        $post = new Post;
+        $post->createPost($request);
+        $post->publishPost($id);
+        return response()->json($post);
+    }
+
+    public function commentPost(CommentPostRequest $request, $user_id, $post_id)
+    {
+      $comment = new CommentPost;
+      $comment->createCommentPost($request);
+      $comment->commentPost($user_id, $post_id);
+      return response()->json($comment);
+    }
+
+    public function like($post_id)
+    {
+        $user = Auth::user();
+        $response = $user->like($user->id, $post_id);
+        return response()->json($response);
+    }
+
+    public function unlike($post_id)
+    {
+        $user = Auth::user();
+        $response = $user->unlike($user->id, $post_id);
+        return response()->json($response);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Http\Requests\UserRequest;
+use App\Post;
 
 class User extends Authenticatable
 {
@@ -39,27 +40,51 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
+    public function liking()
+    {
+        return $this->belongsToMany('App\Post', 'like_post_user');
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany('App\User', 'follow_user', 'following_id', 'follower_id');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany('App\User', 'follow_user', 'follower_id', 'following_id');
+    }
+
+    public function commenting()
+    {
+        return $this->hasMany('App\Post', 'comment_posts');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
+    }
+
     public function createUser(UserRequest $request)
     {
-        $this->username = $request->username;        
+        $this->username = $request->username;
         $this->email = $request->email;
         $this->password = bcrypt($request->password);
         $this->photo = $request->photo;
         $this->nicks = $request->nicks;
-        $this->gender = $request->gender;        
+        $this->gender = $request->gender;
         $this->admin = false;
         $this->save();
     }
 
     public function updateUser(UserRequest $request, $id)
     {
-        $user = User::findOrFail($id);
-        
-        if($user == null) {
-            return response()->json('Usuário não encontrado.', 404);
-        }
-
         if ($request->username) {
             $this->username = $request->username;
         }
@@ -71,27 +96,21 @@ class User extends Authenticatable
         }
         if ($request->photo) {
             $this->photo = $request->photo;
-        }  
+        }
         if ($request->nicks) {
             $this->nicks = $request->nicks;
         }
         if ($request->gender) {
             $this->gender = $request->gender;
         }
-
-        $this->admin = false;
         
-        $this->save();
+        $this->save();     
     }
 
     public function showUser($id)
     {
-        
+
         $user = User::findOrFail($id);
-        if($user == null) {
-            return response()->json('Usuário não encontrado.', 404);
-        }
-        
         return $user;
     }
 
@@ -103,11 +122,71 @@ class User extends Authenticatable
     public function deleteUser($id)
     {
         $user = User::findOrFail($id);
-        if($user == null) {
-            return response()->json('Usuário não encontrado', 404);
-        }
         User::destroy($id);
-        return response()->json("Usuário " . $id . " deletado", 202);
+        return ('Usuário ' . $id . ' deletado!');
     }
 
+    public function follow($following_id, $follower_id)
+    {
+        if ($following_id <> $follower_id) {
+            $following = User::findOrFail($following_id);
+            $count = $following->following()->count();
+            $following->following()->syncWithoutDetaching($follower_id);
+            $count_after = $following->following()->count();
+
+            if ($count == $count_after) {
+                return ('Você já segue o ' . $follower_id . ' !');
+            } else {
+                return ('Você seguiu o ' . $follower_id . ' !');
+            }
+        } else {
+            return ('Você não pode seguir a si mesmo!');
+        }
+    }
+
+    public function unfollow($following_id, $follower_id)
+    {
+        if ($following_id <> $follower_id) {
+            $following = User::findOrFail($following_id);
+            $count = $following->following()->count();
+            $following->following()->detach($follower_id);
+            $count_after = $following->following()->count();
+
+            if ($count > $count_after) {
+                return ('Você não segue mais o ' . $follower_id . ' !');
+            } else {
+                return ('Você já não segue mais o ' . $follower_id . ' !');
+            }
+        } else {
+            return ('Você não pode não seguir a si mesmo!');
+        }
+    }
+
+    public function like($user_id, $post_id)
+    {
+        $liking = User::findOrFail($user_id);
+        $count = $liking->liking()->count();
+        $liking->liking()->syncWithoutDetaching($post_id);
+        $count_after = $liking->liking()->count();
+        
+        if ($count == $count_after) {
+            return ('Você já curtiu o post ' . $post_id . ' !');
+        } else {
+            return ('Você curtiu o post ' . $post_id . ' !');
+        }
+    }
+    
+    public function unlike($user_id, $post_id)
+    {
+        $liking = User::findOrFail($user_id);
+        $count = $liking->liking()->count();
+        $liking->liking()->detach($post_id);
+        $count_after = $liking->liking()->count();
+        
+        if ($count > $count_after) {
+            return ('Você descurtiu o post ' . $post_id . ' !');
+        } else {
+            return ('Você já descurtiu o post ' . $post_id . ' !');
+        }
+    }
 }
