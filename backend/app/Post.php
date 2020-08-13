@@ -20,7 +20,12 @@ class Post extends Model
 
     public function userComment()
     {
-        return $this->belongsToMany('App\User', 'comment_posts');
+        return $this->hasMany('App\User', 'comment_posts');
+    }
+
+    public function tag()
+    {
+        return $this->belongsTo('App\Tag');
     }
 
     public function createPost(PostRequest $request)

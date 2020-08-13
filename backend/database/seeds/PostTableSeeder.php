@@ -11,8 +11,6 @@ class PostTableSeeder extends Seeder
      */
     public function run()
     {
-        // factory(App\Post::class, 10)->create()->each(function ($post) {
-        //     App\User::findOrFail($post->user_id);
-        // });
+        
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Post;
+use Auth;
 
 class PostController extends Controller
 {
@@ -40,5 +41,18 @@ class PostController extends Controller
         $post = new Post;
         $post->deletePost($id);
         return response()->json("Post ".$id." deletado!", 202);
+    }
+
+    public function viewPost()
+    {
+        $user= Auth::user();
+        $following=$user->following;
+        $posts=[];
+        $i=0;
+        foreach ($following as $friend) {
+        $posts[$i]= $friend->posts;
+        $i++;
+        }
+        return response()->json($posts, 200);
     }
 }

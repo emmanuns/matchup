@@ -63,7 +63,12 @@ class User extends Authenticatable
 
     public function commenting()
     {
-        return $this->belongsToMany('App\Post', 'comment_posts');
+        return $this->hasMany('App\Post', 'comment_posts');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
     }
 
     public function createUser(UserRequest $request)

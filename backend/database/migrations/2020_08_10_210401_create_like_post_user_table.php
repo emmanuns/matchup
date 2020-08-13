@@ -15,8 +15,8 @@ class CreateLikePostUserTable extends Migration
     {
         Schema::create('like_post_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('post_id')->nullable();        
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('post_id');        
             $table->timestamps();
         });
         Schema::table('like_post_user', function (Blueprint $table) {

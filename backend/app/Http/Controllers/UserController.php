@@ -8,6 +8,7 @@ use App\Http\Requests\CommentPostRequest;
 use App\User;
 use App\Post;
 use App\CommentPost;
+use Auth;
 
 class UserController extends Controller
 {
@@ -76,17 +77,17 @@ class UserController extends Controller
       return response()->json($comment);
     }
 
-    public function like($user_id, $post_id)
+    public function like($post_id)
     {
-        $liking = new User;
-        $response = $liking->like($user_id, $post_id);
+        $user = Auth::user();
+        $response = $user->like($user->id, $post_id);
         return response()->json($response);
     }
 
-    public function unlike($user_id, $post_id)
+    public function unlike($post_id)
     {
-        $liking = new User;
-        $response = $liking->unlike($user_id, $post_id);
+        $user = Auth::user();
+        $response = $user->unlike($user->id, $post_id);
         return response()->json($response);
     }
 }
