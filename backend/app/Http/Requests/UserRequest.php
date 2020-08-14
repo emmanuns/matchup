@@ -38,8 +38,8 @@ class UserRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'username' => 'required|string|unique:Users,username',
-                'email' => 'required|email|unique:Users,email',
+                'username' => 'required|string|unique:users,username',
+                'email' => 'required|email|unique:users,email',
                 'password' => 'min:6|max:12|required',
                 'photo' => 'string|nullable',
                 'nicks' => 'string|nullable',
@@ -50,8 +50,8 @@ class UserRequest extends FormRequest
 
         if ($this->isMethod('put')) {
             return [
-                'username' => 'string|unique:Users,username',
-                'email' => 'email|unique:Users,email',
+                'username' => 'string|unique:users,username',
+                'email' => 'email|unique:users,email',
                 'password' => 'min:6|max:12',
                 'photo' => 'string',
                 'nicks' => 'string',
