@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 class Profile {
   photo: string;
@@ -16,7 +17,7 @@ class Profile {
 export class ConfigPage implements OnInit {
   profile: Profile[];
 
-  constructor() { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
     this.profile = [
@@ -28,4 +29,15 @@ export class ConfigPage implements OnInit {
       }];
   }
 
+  logout() {
+    this.authService.logout().subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+    console.log('deslogou');
+  }
 }
