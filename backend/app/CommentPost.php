@@ -6,11 +6,35 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\CommentPostRequest;
 use App\User;
 use App\Post;
+use Auth;
 
 class CommentPost extends Model
 {
+
+    //
+    //Relations
+    //
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+     public function post()
+    {
+        return $this->belongsTo('App\Post');
+    }
+
+    //
+    //Operations
+    //
+
     public function createCommentPost(CommentPostRequest $request)
     {
+        $user_id = Auth::user()->id;
+        $post_id = Post::showPost($request->post_id)->id;
+        $this->user_id = $user_id;
+        $this->post_id = $post_id;
         $this->text = $request->text;
         $this->save();
     }
@@ -39,14 +63,5 @@ class CommentPost extends Model
     {
         $comment = CommentPost::findOrFail($id);
         CommentPost::destroy($id);
-    }
-
-    public function commentPost($user_id, $post_id)
-    {
-        User::findOrFail($user_id);
-        Post::findOrFail($post_id);
-        $this->user_id = $user_id;
-        $this->post_id = $post_id;
-        $this->save(); 
     }
 }

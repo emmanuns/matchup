@@ -17,15 +17,13 @@ class PostController extends Controller
 
     public function showPost($id)
     {
-        $post = new Post;
-        $post = $post->showPost($id);
+        $post = Post::showPost($id);
         return response()->json($post, 200);
     }
 
     public function listPosts()
     {
-        $posts = new Post;
-        $posts = $posts->listPosts();
+        $posts = Post::listPosts();
         return response()->json([$posts], 200);
     } 
 
@@ -38,21 +36,26 @@ class PostController extends Controller
 
     public function deletePost($id)
     {
-        $post = new Post;
-        $post->deletePost($id);
+        Post::deletePost($id);
         return response()->json("Post ".$id." deletado!", 202);
     }
 
-    public function viewPost()
+    public function showComments($id)
     {
-        $user= Auth::user();
-        $following=$user->following;
-        $posts=[];
-        $i=0;
-        foreach ($following as $friend) {
-        $posts[$i]= $friend->posts;
-        $i++;
-        }
-        return response()->json($posts, 200);
+        $post = Post::showPost($id);
+        return response()->json($post->comments, 200);
     }
+
+    public function showLikes($id)
+    {
+        $post = Post::showPost($id);
+        return response()->json($post->userLikes()->count(), 200);
+    }
+
+    public function showUsersLikes($id)
+    {
+        $post = Post::showPost($id);
+        return response()->json($post->userLikes, 200);
+    }
+
 }
