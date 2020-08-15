@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>config</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Config</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -45,7 +48,7 @@
       <img src="../assets/icon-help.svg" />
       <h2>Ajuda</h2>
     </div>
-    <div (click)="logout()" class="power">
+    <div (click)="presentAlertConfirmLogout()" class="power">
       <img src="../assets/icon-power.svg" />
       <h2>Desconectar</h2>
     </div>
