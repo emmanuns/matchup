@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class LoginPage implements OnInit {
 
   constructor(public formBuilder: FormBuilder,
               public authService: AuthService,
-              public router: Router) {
+              public router: Router,
+              public toastController: ToastController) {
     this.loginForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]]
@@ -29,14 +31,26 @@ export class LoginPage implements OnInit {
     this.authService.login(form.value).subscribe(
       (res) => {
         console.log(res);
-        localStorage.setItem('userToken', res.Success.token);
-        this.router.navigate(['']);
+        if (res.Success) {
+          localStorage.setItem('userToken', res.Success.token);
+          this.router.navigate(['']);
+        } else {
+          this.presentToastFail();
+        }
       },
       (err) => {
         console.log(err);
+        this.presentToastFail();
       }
     );
     this.loginForm.reset();
   }
 
+  async presentToastFail() {
+    const toast = await this.toastController.create({
+      message: 'Falha na autenticação!',
+      duration: 2000
+    });
+    toast.present()
+  }
 }
