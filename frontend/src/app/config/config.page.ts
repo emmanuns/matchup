@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 class Profile {
@@ -17,7 +18,8 @@ class Profile {
 export class ConfigPage implements OnInit {
   profile: Profile[];
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService,
+              public router: Router) { }
 
   ngOnInit() {
     this.profile = [
@@ -38,6 +40,7 @@ export class ConfigPage implements OnInit {
         console.log(err);
       }
     );
+    this.router.navigate(['']);
     console.log('deslogou');
   }
 }

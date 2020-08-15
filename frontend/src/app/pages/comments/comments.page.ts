@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as faker from 'faker';
 
 @Component({
@@ -16,7 +17,7 @@ export class CommentsPage implements OnInit {
 
   comments = [];
 
-  constructor() {
+  constructor(public router: Router) {
     this.getComments(5);
   }
 
@@ -43,4 +44,11 @@ export class CommentsPage implements OnInit {
     }, 500);
   }
 
+  newComment() {
+    if(localStorage.getItem('userToken')) {
+      this.router.navigate(['/commenting']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import * as faker from 'faker';
 
 @Component({
@@ -9,7 +10,7 @@ import * as faker from 'faker';
 export class Tab1Page {
   posts = [];
 
-  constructor() {
+  constructor(public router: Router) {
     this.getPosts(20);
   }
 
@@ -34,4 +35,19 @@ export class Tab1Page {
     }, 500);
   }
 
+  newPost() {
+    if(localStorage.getItem('userToken')) {
+      this.router.navigate(['/posting']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  goToConfig() {
+    if(localStorage.getItem('userToken')) {
+      this.router.navigate(['/config']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
 }
