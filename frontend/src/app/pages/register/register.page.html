@@ -7,47 +7,41 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="primary">
   <div class="center">
+    <img class="logo" src="../assets/logomax.svg" />
     <form [formGroup]="registerForm" (ngSubmit)="submitRegister(registerForm)">
-      <ion-list inset=true lines="full">
-        <ion-item>
-          <ion-label position="floating">Nome de usuário</ion-label>
+      <ion-item>
+        <ion-label position="floating">Nome de usuário</ion-label>
           <ion-input type="text" inputmode="text" formControlName="username"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">E-mail</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
           <ion-input type="email" inputmode="email" formControlName="email"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Senha</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
           <ion-input type="password" formControlName="password"></ion-input>
-        </ion-item>
-        <ion-radio-group formControlName="gender">
-          <ion-list-header>
-            <ion-label>Gênero</ion-label>
-          </ion-list-header>
-          <ion-item>
-            <ion-label>Masculino</ion-label>
-            <ion-radio value="masculine"></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Feminino</ion-label>
-            <ion-radio value="feminine"></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Outro</ion-label>
-            <ion-radio value="other"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-        <ion-row class="ion-justify-content-center ion-margin-top">
-          <ion-col size="auto">
-            <ion-button type="submit" color="secondary" shape="round" [disabled]="registerForm.invalid">
+      </ion-item>
+      <ion-item>
+        <ion-label>Gênero</ion-label>
+        <ion-select formControlName="gender" cancel-text="Cancelar">
+          <ion-select-option value="masculine">Masculino</ion-select-option>
+      <ion-item>
+          <ion-select-option value="feminine">Feminino</ion-select-option>
+      </ion-item>
+      <ion-item>
+          <ion-select-option value="other">Outro</ion-select-option>
+      </ion-item>
+        </ion-select>
+      </ion-item>
+      <ion-row class="ion-justify-content-center ion-margin-top">
+        <ion-col size="auto">
+          <ion-button type="submit" color="secondary" shape="round" [disabled]="registerForm.invalid">
               Cadastrar
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-list>
+          </ion-button>
+        </ion-col>
+      </ion-row>
     </form>
   </div>
 </ion-content>

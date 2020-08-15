@@ -4,3 +4,9 @@
     justify-content: center;
     height: 100%;
 }
+
+ion-item { 
+    --background: var(--ion-color-primary);
+  padding-right: 3%;
+}
+
