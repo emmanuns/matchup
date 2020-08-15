@@ -36,13 +36,15 @@ class CommentPostRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'text' => 'required|string|max:512'
+                'text' => 'required|string|max:512',
+                'post_id' => 'required|integer'
             ];
         }
 
         if ($this->isMethod('put')) {
             return [
                 'text' => 'string|max:512',
+                'post_id' => 'required|integer'
             ];
         }
     }
@@ -51,7 +53,9 @@ class CommentPostRequest extends FormRequest
         return [
             'text.required' => 'Você precisa digitar um texto!',
             'text.string' => 'Precisa ser string!',
-            'text.max' => 'No máximo 512 caracteres!'
+            'text.max' => 'No máximo 512 caracteres!',
+            'post_id.required' => 'Você precisa inserir o id do post!',
+            'post_id.integer' => 'O id do post precisa ser um número inteiro',
         ];
     }
 }

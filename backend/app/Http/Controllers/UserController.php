@@ -21,15 +21,13 @@ class UserController extends Controller
 
     public function showUser($id)
     {
-        $user = new User;
-        $user = $user->showUser($id);
+        $user = User::showUser($id);
         return response()->json($user, 200);
     }
 
     public function listUsers()
     {
-        $users = new User;
-        $users = $users->listUsers();
+        $users = User::listUsers();
         return response()->json([$users], 200);
     }
 
@@ -42,52 +40,50 @@ class UserController extends Controller
 
     public function deleteUser($id)
     {
-        $user = new User;
-        $user = $user->deleteUser($id);
+        $user = User::deleteUser($id);
         return response()->json($user, 202);
     }
 
-    public function follow($following_id, $follower_id)
+    public function follow($following_id)
     {
+        $follower_id = Auth::user()->id;
         $following = new User;
         $response = $following->follow($following_id, $follower_id);
         return response()->json($response);
     }
 
-    public function unfollow($following_id, $follower_id)
-    {
-        $following = new User;
-        $response = $following->unfollow($following_id, $follower_id);
-        return response()->json($response);
-    }
-
-    public function publishPost(PostRequest $request, $id)
+    public function publishPost(PostRequest $request)
     {
         $post = new Post;
         $post->createPost($request);
-        $post->publishPost($id);
         return response()->json($post);
     }
 
-    public function commentPost(CommentPostRequest $request, $user_id, $post_id)
+    public function commentPost(CommentPostRequest $request)
     {
       $comment = new CommentPost;
       $comment->createCommentPost($request);
-      $comment->commentPost($user_id, $post_id);
       return response()->json($comment);
     }
 
     public function like($post_id)
     {
-        $user = Auth::user();
-        $response = $user->like($user->id, $post_id);
+        $response = User::like($post_id);
         return response()->json($response);
     }
 
-    public function unlike($post_id)
+    public function viewPosts()
     {
         $user = Auth::user();
-        $response = $user->unlike($user->id, $post_id);
-        return response()->json($response);
+        $following = $user->following;
+        $posts = [];
+        $i = 0;
+
+        foreach ($following as $friend) {
+            $posts[$i]= $friend->posts;
+            $i++;
+        }
+        
+        return response()->json($posts, 200);
     }
 }

@@ -5,9 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\PostRequest;
 use App\User;
+use Auth;
 
 class Post extends Model
 {
+
+    //
+    //Relations
+    //
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -18,9 +24,9 @@ class Post extends Model
         return $this->belongsToMany('App\User', 'like_post_user');
     }
 
-    public function userComment()
+    public function comments()
     {
-        return $this->hasMany('App\User', 'comment_posts');
+        return $this->hasMany('App\CommentPost');
     }
 
     public function tag()
@@ -28,8 +34,14 @@ class Post extends Model
         return $this->belongsTo('App\Tag');
     }
 
+    //
+    //Operations
+    //
+
     public function createPost(PostRequest $request)
     {
+        $user_id = Auth::user()->id;
+        $this->user_id = $user_id;
         $this->text = $request->text;
         $this->save();
     }
@@ -43,28 +55,20 @@ class Post extends Model
         $this->save();     
     }
 
-    public function showPost($id)
+    public static function showPost($id)
     {
         $post = Post::findOrFail($id);
         return $post;
     }
 
-    public function listPosts()
+    public static function listPosts()
     {
-        return $this->all();
+        return Post::all();
     }
 
-    public function deletePost($id)
+    public static function deletePost($id)
     {
         $post = Post::findOrFail($id);
         Post::destroy($id);
-    }
-
-    //Buscar e salvar id do usuário    
-    public function publishPost($id)
-    {
-        User::findOrFail($id);
-        $this->user_id = $id;
-        $this->save();
     }
 }

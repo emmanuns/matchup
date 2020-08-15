@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Http\Requests\UserRequest;
 use App\Post;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -41,6 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    //
+    //Relations
+    //
+
     public function posts()
     {
         return $this->hasMany('App\Post');
@@ -70,6 +76,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Tag');
     }
+
+    //
+    //Operations
+    //
 
     public function createUser(UserRequest $request)
     {
@@ -107,19 +117,18 @@ class User extends Authenticatable
         $this->save();     
     }
 
-    public function showUser($id)
+    public static function showUser($id)
     {
-
         $user = User::findOrFail($id);
         return $user;
     }
 
-    public function listUsers()
+    public static function listUsers()
     {
-        return $this->all();
+        return User::all();
     }
 
-    public function deleteUser($id)
+    public static function deleteUser($id)
     {
         $user = User::findOrFail($id);
         User::destroy($id);
@@ -128,65 +137,32 @@ class User extends Authenticatable
 
     public function follow($following_id, $follower_id)
     {
-        if ($following_id <> $follower_id) {
-            $following = User::findOrFail($following_id);
-            $count = $following->following()->count();
-            $following->following()->syncWithoutDetaching($follower_id);
-            $count_after = $following->following()->count();
+        $follower_user = User::findOrFail($follower_id);
+        $following_user = User::findOrFail($following_id);
 
-            if ($count == $count_after) {
-                return ('Você já segue o ' . $follower_id . ' !');
-            } else {
-                return ('Você seguiu o ' . $follower_id . ' !');
-            }
-        } else {
-            return ('Você não pode seguir a si mesmo!');
+        if($following_user->followers->contains($follower_user)) {
+            $following_user->followers()->detach($follower_id);
+            return ('Você deixou de seguir o usuário de ID ' . $following_id . ' !');
+        }
+        else {
+            $following_user->followers()->syncWithoutDetaching($follower_id);
+            return ('Você seguiu o usuário de ID ' . $following_id . ' !');
         }
     }
 
-    public function unfollow($following_id, $follower_id)
+    public static function like($post_id)
     {
-        if ($following_id <> $follower_id) {
-            $following = User::findOrFail($following_id);
-            $count = $following->following()->count();
-            $following->following()->detach($follower_id);
-            $count_after = $following->following()->count();
-
-            if ($count > $count_after) {
-                return ('Você não segue mais o ' . $follower_id . ' !');
-            } else {
-                return ('Você já não segue mais o ' . $follower_id . ' !');
-            }
-        } else {
-            return ('Você não pode não seguir a si mesmo!');
-        }
-    }
-
-    public function like($user_id, $post_id)
-    {
-        $liking = User::findOrFail($user_id);
-        $count = $liking->liking()->count();
-        $liking->liking()->syncWithoutDetaching($post_id);
-        $count_after = $liking->liking()->count();
-        
-        if ($count == $count_after) {
-            return ('Você já curtiu o post ' . $post_id . ' !');
-        } else {
-            return ('Você curtiu o post ' . $post_id . ' !');
-        }
-    }
-    
-    public function unlike($user_id, $post_id)
-    {
-        $liking = User::findOrFail($user_id);
-        $count = $liking->liking()->count();
-        $liking->liking()->detach($post_id);
-        $count_after = $liking->liking()->count();
-        
-        if ($count > $count_after) {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $post = Post::findOrFail($post_id);
+        $user = User::findOrFail($user_id);
+        if($post->userLikes->contains($user)) {
+            $user->liking()->detach($post_id);
             return ('Você descurtiu o post ' . $post_id . ' !');
-        } else {
-            return ('Você já descurtiu o post ' . $post_id . ' !');
+        }
+        else {
+            $user->liking()->syncWithoutDetaching($post_id);
+            return ('Você curtiu o post ' . $post_id . ' !');
         }
     }
 }
