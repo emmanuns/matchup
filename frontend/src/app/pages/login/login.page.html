@@ -23,9 +23,15 @@
         <ion-col size="auto">
           <ion-button type="submit" color="secondary" shape="round" [disabled]="loginForm.invalid">
               Entrar
-          </ion-button>
-        </ion-col>
-      </ion-row> 
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-text-center">
+          <ion-col>
+            <a routerLink="/register">Não possuo uma conta</a>
+          </ion-col>
+        </ion-row>
+      </ion-list>
     </form>
   </div>
 </ion-content>

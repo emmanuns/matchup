@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 
 class Profile {
@@ -17,7 +19,9 @@ class Profile {
 export class ConfigPage implements OnInit {
   profile: Profile[];
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService,
+              public router: Router,
+              public alertController: AlertController) { }
 
   ngOnInit() {
     this.profile = [
@@ -29,6 +33,29 @@ export class ConfigPage implements OnInit {
       }];
   }
 
+  async presentAlertConfirmLogout() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar',
+      message: 'Deseja mesmo desconectar?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('cancelou')
+          }
+        }, {
+          text: 'Sim',
+          handler: () => {
+            this.logout();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  
   logout() {
     this.authService.logout().subscribe(
       (res) => {
@@ -38,6 +65,7 @@ export class ConfigPage implements OnInit {
         console.log(err);
       }
     );
+    this.router.navigate(['']);
     console.log('deslogou');
   }
 }

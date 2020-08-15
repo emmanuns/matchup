@@ -3,6 +3,11 @@
     <ion-title>
       Home
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToConfig()">
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +18,7 @@
     </div>
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/posting">
+    <ion-fab-button (click)="newPost()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
