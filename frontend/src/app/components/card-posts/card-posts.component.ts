@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-card-posts',
@@ -7,9 +8,27 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CardPostsComponent implements OnInit {
   @Input() post;
+  photo: any;
+  username: any;
 
-  constructor() { }
+  constructor(public userService: UserService) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getPoster();
+  }
+
+  getPoster() {
+    this.userService.getUser(this.post.user_id).subscribe(
+      (res) => {
+        console.log(res);
+        this.photo = res.photo;
+        this.username = res.username;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
 }

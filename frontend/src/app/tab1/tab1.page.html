@@ -12,8 +12,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="refreshHome($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list>
-    <div *ngFor="let post of posts">
+    <div *ngFor="let post of allPosts">
       <app-card-posts [post]="post"></app-card-posts>
     </div>
   </ion-list>
@@ -22,10 +25,10 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-infinite-scroll (ionInfinite)="loadPosts($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Carregando mais posts...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <!-- <ion-infinite-scroll (ionInfinite)="loadPosts($event)">
+       <ion-infinite-scroll-content
+       loadingSpinner="bubbles"
+       loadingText="Carregando mais posts...">
+       </ion-infinite-scroll-content>
+       </ion-infinite-scroll> -->
 </ion-content>
