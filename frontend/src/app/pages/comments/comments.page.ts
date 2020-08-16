@@ -29,7 +29,7 @@ export class CommentsPage implements OnInit {
     this.postService.getPost(this.postId).subscribe(
       (res) => {
         this.post = res;
-        console.log(res);
+        // console.log(res);
         if(this.post) {
           this.isPostLoaded = true;
         }
@@ -40,25 +40,25 @@ export class CommentsPage implements OnInit {
     );
   }
 
-  getComments(size: number) {
-    for (let i = 0; i < size; i++) {
-      this.comments.push({
-        user_photo: faker.internet.avatar(),
-        user_name: faker.internet.userName(),
-        text: faker.lorem.paragraph(),
-      })
-    }
-  }
+  // getComments(size: number) {
+  //   for (let i = 0; i < size; i++) {
+  //     this.comments.push({
+  //       user_photo: faker.internet.avatar(),
+  //       user_name: faker.internet.userName(),
+  //       text: faker.lorem.paragraph(),
+  //     })
+  //   }
+  // }
 
-  loadComments(event) {
-    setTimeout(() => {
-      this.getComments(5);
-      event.target.complete();
-      if(this.comments.length === 20) {
-        event.target.disabled = true;
-      }
-    }, 500);
-  }
+  // loadComments(event) {
+  //   setTimeout(() => {
+  //     this.getComments(5);
+  //     event.target.complete();
+  //     if(this.comments.length === 20) {
+  //       event.target.disabled = true;
+  //     }
+  //   }, 500);
+  // }
 
   newComment() {
     if(localStorage.getItem('userToken')) {

@@ -19,7 +19,6 @@ export class CardPostsComponent implements OnInit {
   }
 
   getPoster() {
-    console.log(this.post);
     this.userService.getUser(this.post.user_id).subscribe(
       (res) => {
         // console.log(res);
