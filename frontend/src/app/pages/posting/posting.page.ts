@@ -15,7 +15,7 @@ export class PostingPage implements OnInit {
               private location: Location) {
     this.postForm = this.formBuilder.group({
       text: [null, [Validators.required]],
-      gametag: [null, [Validators.required]],
+      gametag: [null],
     });
   }
 
