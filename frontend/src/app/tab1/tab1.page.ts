@@ -21,7 +21,7 @@ export class Tab1Page {
     this.postService.getAllPosts().subscribe(
       (res) => {
         this.allPosts = res[0];
-        console.log(res);
+        // console.log(res);
       },
       (err) => {
         console.log(err);
@@ -32,7 +32,7 @@ export class Tab1Page {
   refreshHome(event) {
     this.getAllPosts();
     event.target.complete();
-    console.log(this.allPosts);
+    // console.log(this.allPosts);
   }
 
   // getPosts(size: number) {

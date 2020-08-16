@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PostService } from '../../services/post.service';
 import * as faker from 'faker';
 
 @Component({
@@ -8,20 +9,35 @@ import * as faker from 'faker';
   styleUrls: ['./comments.page.scss'],
 })
 export class CommentsPage implements OnInit {
-  post = {
-    user_photo: faker.internet.avatar(),
-    user_name: faker.internet.userName(),
-    tags: faker.lorem.words(),
-    text: faker.lorem.paragraph(),
-  };
+  isPostLoaded = false;
+  post = {};
+  postId = this.activatedRoute.snapshot.paramMap.get('id');
 
   comments = [];
 
-  constructor(public router: Router) {
-    this.getComments(5);
+  constructor(public router: Router,
+              public activatedRoute: ActivatedRoute,
+              public postService: PostService) {
+    // this.getComments(5);
+    this.getPost();
   }
 
   ngOnInit() {
+  }
+
+  getPost() {
+    this.postService.getPost(this.postId).subscribe(
+      (res) => {
+        this.post = res;
+        console.log(res);
+        if(this.post) {
+          this.isPostLoaded = true;
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getComments(size: number) {
