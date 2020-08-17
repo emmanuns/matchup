@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       Jogos
     </ion-title>
@@ -13,5 +13,35 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <img src="../assets/icon-lol.jpg" />
+          League of Legends</ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <img src="../assets/fifa-logo.png" />
+          FIFA
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <img src="../assets/dontstarve.png" />
+          Don't Starve Together
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <img src="../assets/valorant-logo.png" />
+          Valorant
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
+
 </ion-content>
