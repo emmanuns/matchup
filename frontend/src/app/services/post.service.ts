@@ -24,7 +24,7 @@ export class PostService {
   getAllPosts(): Observable<any> {
     return this.http.get(this.apiUrl + 'post');
   }
-  
+
   userViewPosts(): Observable<any> {
     this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
     return this.http.get(this.apiUrl + 'user/posts', this.httpHeaders);
@@ -33,5 +33,16 @@ export class PostService {
   userPosting(data): Observable<any> {
     this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
     return this.http.post(this.apiUrl + 'user/post', data, this.httpHeaders);
+  }
+
+  // Métodos para comentários
+
+  getCommentsFromPost(id): Observable<any> {
+    return this.http.get(this.apiUrl + 'post/' + id + '/comments');
+  }
+
+  userCommenting(data): Observable<any> {
+    this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
+    return this.http.post(this.apiUrl + 'user/commentPost', data, this.httpHeaders);
   }
 }

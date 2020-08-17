@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refreshComments($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <app-card-posts *ngIf="isPostLoaded" [post]="post"></app-card-posts>
   <ion-list>
     <div *ngFor="let comment of comments">

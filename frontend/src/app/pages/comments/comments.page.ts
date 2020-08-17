@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PostService } from '../../services/post.service';
-import * as faker from 'faker';
 
 @Component({
   selector: 'app-comments',
@@ -20,6 +19,7 @@ export class CommentsPage implements OnInit {
               public postService: PostService) {
     // this.getComments(5);
     this.getPost();
+    this.getComments();
   }
 
   ngOnInit() {
@@ -38,6 +38,23 @@ export class CommentsPage implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  getComments() {
+    this.postService.getCommentsFromPost(this.postId).subscribe(
+      (res) => {
+        console.log(res);
+        this.comments = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  refreshComments(event) {
+    this.getComments();
+    event.target.complete();
   }
 
   // getComments(size: number) {
@@ -62,7 +79,7 @@ export class CommentsPage implements OnInit {
 
   newComment() {
     if(localStorage.getItem('userToken')) {
-      this.router.navigate(['/commenting']);
+      this.router.navigate(['/commenting', this.postId]);
     } else {
       this.router.navigate(['/login']);
     }
