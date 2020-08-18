@@ -8,6 +8,9 @@
         <ion-label>{{username}}</ion-label>
         <ion-card-title>{{post.tags}}</ion-card-title>
         </ion-col>
+        <ion-button (click)="presentPostsOp($event)" fill="clear" slot="end">
+          <ion-icon name="chevron-down"></ion-icon>
+        </ion-button>
       </ion-item>
   </ion-card-header>
   <ion-card-content>

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { PopoverController } from '@ionic/angular';
+import { PostsOpComponent } from '../posts-op/posts-op.component';
 
 @Component({
   selector: 'app-card-posts',
@@ -11,7 +13,8 @@ export class CardPostsComponent implements OnInit {
   photo: any;
   username: any;
 
-  constructor(public userService: UserService) {
+  constructor(public userService: UserService,
+              public popoverController: PopoverController) {
   }
 
   ngOnInit() {
@@ -29,6 +32,19 @@ export class CardPostsComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  async presentPostsOp(ev: any) {
+    const popover = await this.popoverController.create({
+      component: PostsOpComponent,
+      componentProps: {
+        user_name: this.post.user_name,
+      },
+      event: ev,
+      translucent: true
+    });
+
+    return await popover.present();
   }
 
 }
