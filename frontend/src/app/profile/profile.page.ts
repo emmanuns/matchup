@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 class Profile {
   photo: string;
@@ -23,10 +24,12 @@ class Post {
 })
 export class ProfilePage implements OnInit {
   profile: Profile[];
+  profileId = this.activatedRoute.snapshot.paramMap.get('id');
  
   @Input() post;
 
-  constructor() { }
+  constructor(public userService: UserService,
+              public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.profile = [
@@ -54,7 +57,16 @@ export class ProfilePage implements OnInit {
         photo: "../../assets/jose.jpg",
         username: "thekiller",
       }];
-      
+      this.getUser();
   }
 
+  getUser() {
+    this.userService.getUser(this.profileId).subscribe(
+      (res) => {
+        console.log(res);
+        this.profile[0].username = res.username;
+        this.profile[0].photo = res.photo;
+      }
+    );
+  }
 }

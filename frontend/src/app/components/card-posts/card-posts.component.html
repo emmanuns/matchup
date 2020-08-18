@@ -1,7 +1,7 @@
 <ion-card>
   <ion-card-header>
       <ion-item lines="full">
-        <ion-avatar slot="start">
+        <ion-avatar slot="start" [routerLink]="['/profile', this.post.user_id]">
           <ion-img [src]=photo></ion-img>
         </ion-avatar>
         <ion-col>
