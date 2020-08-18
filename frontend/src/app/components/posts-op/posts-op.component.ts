@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AlertController, PopoverController } from '@ionic/angular';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-posts-op',
@@ -7,13 +8,14 @@ import { AlertController, PopoverController } from '@ionic/angular';
   styleUrls: ['./posts-op.component.scss'],
 })
 export class PostsOpComponent implements OnInit {
-  @Input("user_name") user_name;
+  @Input("postId") postId;
 
   constructor(public alertController: AlertController,
-              public popoverController: PopoverController) { }
+              public popoverController: PopoverController,
+              public postService: PostService) { }
 
   ngOnInit() {
-    console.log(this.user_name);
+    console.log(this.postId);
   }
 
   async presentConfirmDelete() {
@@ -31,6 +33,14 @@ export class PostsOpComponent implements OnInit {
           text: 'Sim',
           handler: () => {
             console.log('confirmou deleção');
+            this.postService.deletePost(this.postId).subscribe(
+              (res) => {
+                console.log(res)
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
             this.popoverController.dismiss();
           }
         }

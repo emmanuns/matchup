@@ -43,7 +43,7 @@ export class CardPostsComponent implements OnInit {
     const popover = await this.popoverController.create({
       component: PostsOpComponent,
       componentProps: {
-        user_name: this.post.user_name,
+        postId: this.post.id,
       },
       event: ev,
       translucent: true

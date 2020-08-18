@@ -29,11 +29,11 @@ export class UserService {
   userFollowing(id): Observable<any> {
     this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
     console.log(this.httpHeaders);
-    return this.http.put(this.apiUrl + 'user/follow/' + id, this.httpHeaders);
+    return this.http.put(this.apiUrl + 'user/follow/' + id, {}, this.httpHeaders);
   }
 
   userLike(id): Observable<any> {
     this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
-    return this.http.put(this.apiUrl + 'user/like/' + id, this.httpHeaders);
+    return this.http.put(this.apiUrl + 'user/like/' + id, {}, this.httpHeaders);
   }
 }
