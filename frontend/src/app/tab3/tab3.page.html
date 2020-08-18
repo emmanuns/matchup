@@ -1,47 +1,40 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar color="primary">
-    <ion-title>
-      Jogos
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Jogos</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<ion-content>
   <ion-grid>
     <ion-row>
       <ion-col>
         <ion-card>
-          <img src="../assets/icon-lol.jpg" />
-          League of Legends</ion-card>
+          <img src="../assets/icon-lol.svg" />
+          #League of Legends
+        </ion-card>
       </ion-col>
       <ion-col>
         <ion-card>
-          <img src="../assets/fifa-logo.png" />
-          FIFA
+          <img src="../assets/icon-fifa.svg" />
+          #FIFA
         </ion-card>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-card>
-          <img src="../assets/dontstarve.png" />
-          Don't Starve Together
+          <img src="../assets/icon-dontstarve.svg" />
+          #Don't Starve Together
         </ion-card>
       </ion-col>
       <ion-col>
         <ion-card>
-          <img src="../assets/valorant-logo.png" />
-          Valorant
+          <img src="../assets/icon-valorant.svg" />
+          #Valorant
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
- 
-
 </ion-content>
