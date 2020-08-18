@@ -131,6 +131,8 @@ class User extends Authenticatable
     public static function deleteUser($id)
     {
         $user = User::findOrFail($id);
+        if($user == null)
+            return response()->json('Usuário não encontrado.',404);
         User::destroy($id);
         return ('Usuário ' . $id . ' deletado!');
     }
