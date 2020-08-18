@@ -10,8 +10,11 @@ import { PostsOpComponent } from '../posts-op/posts-op.component';
 })
 export class CardPostsComponent implements OnInit {
   @Input() post;
+  posterId: any;
   photo: any;
   username: any;
+  loggedId = parseInt(localStorage.getItem('userId'));
+  loggedHasPermission: boolean = false;
 
   constructor(public userService: UserService,
               public popoverController: PopoverController) {
@@ -24,7 +27,9 @@ export class CardPostsComponent implements OnInit {
   getPoster() {
     this.userService.getUser(this.post.user_id).subscribe(
       (res) => {
-        // console.log(res);
+        console.log(res);
+        this.posterId = res.id;
+        this.loggedHasPermission = this.loggedId === res.id ? true : false;
         this.photo = res.photo;
         this.username = res.username;
       },

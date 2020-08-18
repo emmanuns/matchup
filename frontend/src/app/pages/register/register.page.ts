@@ -44,6 +44,7 @@ export class RegisterPage implements OnInit {
         console.log(res);
         if (res.Success) {
           localStorage.setItem('userToken', res.Success.token);
+          localStorage.setItem('userId', res.user.id);
           this.router.navigate(['']);
         } else {
           this.presentToastFail();
