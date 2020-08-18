@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import * as faker from 'faker';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-tab1',
@@ -8,32 +8,53 @@ import * as faker from 'faker';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  allPosts = [];
   posts = [];
 
-  constructor(public router: Router) {
-    this.getPosts(20);
+  constructor(public router: Router,
+              public postService: PostService) {
+    // this.getPosts(20);
+    this.getAllPosts();
   }
 
-  getPosts(size: number) {
-    for (let i = 0; i < size; i++) {
-      this.posts.push({
-        user_photo: faker.internet.avatar(),
-        user_name: faker.internet.userName(),
-        tags: faker.lorem.words(),
-        text: faker.lorem.paragraph(),
-      });
-    }
-  }
-
-  loadPosts(event) {
-    setTimeout(() => {
-      this.getPosts(20);
-      event.target.complete();
-      if(this.posts.length === 1000) {
-        event.target.disabled = true;
+  getAllPosts() {
+    this.postService.getAllPosts().subscribe(
+      (res) => {
+        this.allPosts = res[0];
+        // console.log(res);
+      },
+      (err) => {
+        console.log(err);
       }
-    }, 500);
+    );
   }
+
+  refreshHome(event) {
+    this.getAllPosts();
+    event.target.complete();
+    // console.log(this.allPosts);
+  }
+
+  // getPosts(size: number) {
+  //   for (let i = 0; i < size; i++) {
+  //     this.posts.push({
+  //       user_photo: faker.internet.avatar(),
+  //       user_name: faker.internet.userName(),
+  //       tags: faker.lorem.words(),
+  //       text: faker.lorem.paragraph(),
+  //     });
+  //   }
+  // }
+
+  // loadPosts(event) {
+  //   setTimeout(() => {
+  //     this.getPosts(20);
+  //     event.target.complete();
+  //     if(this.posts.length === 1000) {
+  //       event.target.disabled = true;
+  //     }
+  //   }, 500);
+  // }
 
   newPost() {
     if(localStorage.getItem('userToken')) {

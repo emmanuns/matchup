@@ -1,11 +1,11 @@
-<ion-card routerLink="/comments">
+<ion-card>
   <ion-card-header>
       <ion-item lines="full">
         <ion-avatar slot="start">
-          <ion-img [src]=post.user_photo></ion-img>
+          <ion-img [src]=photo></ion-img>
         </ion-avatar>
         <ion-col>
-        <ion-label>{{post.user_name}}</ion-label>
+        <ion-label>{{username}}</ion-label>
         <ion-card-title>{{post.tags}}</ion-card-title>
         </ion-col>
       </ion-item>
@@ -17,7 +17,7 @@
         <ion-button>
           <ion-icon name="bookmark-outline"></ion-icon>
         </ion-button>
-        <ion-button routerLink="/comments">
+        <ion-button [routerLink]="['/comments', post.id]">
           <ion-icon name="chatbox-ellipses-outline"></ion-icon>
         </ion-button>
         <ion-button>

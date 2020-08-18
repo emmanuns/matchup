@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>Config</ion-title>
   </ion-toolbar>
@@ -14,8 +14,8 @@
       <ion-card-title class="name">{{profile.username}}</ion-card-title>
     </div>
     <div class="info">
-      <h3>Following {{profile.following}}</h3>
-      <h3>Followers {{profile.followers}}</h3>
+      <h3>{{profile.following}} Following</h3>
+      <h3>{{profile.followers}} Followers </h3>
     </div>
   </ion-card>
 
@@ -31,14 +31,6 @@
     <div class="saved">
       <img src="../assets/icon-save.svg" />
       <h2>Itens Salvos</h2>
-    </div>
-    <div class="comunity">
-      <img src="../assets/icon-comunity.svg" />
-      <h2>Comunidades</h2>
-    </div>
-    <div class="look">
-      <img src="../assets/icon-palette.svg" />
-      <h2>Aparência</h2>
     </div>
     <div class="config">
       <img src="../assets/icon-account.svg" />

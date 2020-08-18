@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-posting',
@@ -12,10 +13,11 @@ export class PostingPage implements OnInit {
   userId = localStorage.getItem('userId');
   
   constructor(public formBuilder: FormBuilder,
-              private location: Location) {
+              private location: Location,
+              public postService: PostService) {
     this.postForm = this.formBuilder.group({
       text: [null, [Validators.required]],
-      gametag: [null, [Validators.required]],
+      gametag: [null],
     });
   }
 
@@ -25,6 +27,14 @@ export class PostingPage implements OnInit {
   submitPost(form) {
     console.log(form);
     console.log(form.value);
+    this.postService.userPosting(form.value).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
     this.location.back();
   }
 

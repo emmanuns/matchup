@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-comment',
@@ -7,9 +8,25 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CommentComponent implements OnInit {
   @Input() comment;
+  photo: any;
+  username: any;
 
-  constructor() { }
+  constructor(public userService: UserService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCommenter();
+  }
 
+  getCommenter() {
+    this.userService.getUser(this.comment.user_id).subscribe(
+      (res) => {
+        console.log(res);
+        this.photo = res.photo;
+        this.username = res.username;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 }
