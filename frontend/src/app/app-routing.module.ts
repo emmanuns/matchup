@@ -37,7 +37,11 @@ const routes: Routes = [
   {
     path: 'commenting/:id',
     loadChildren: () => import('./pages/commenting/commenting.module').then( m => m.CommentingPageModule)
+  },  {
+    path: 'friends',
+    loadChildren: () => import('./pages/friends/friends.module').then( m => m.FriendsPageModule)
   }
+
 
 ];
 @NgModule({

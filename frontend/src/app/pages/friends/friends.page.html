@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>friends</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment mode="md" value="follow">
+      <ion-segment-button value="following" *ngIf="auth" (click)="toggleMode()">
+        <ion-label>Seguindo</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="followers" (click)="userFollowers()">
+        <ion-label>Seguidores</ion-label>
+      </ion-segment-button>
+  </ion-segment>
+ 
+</ion-content>

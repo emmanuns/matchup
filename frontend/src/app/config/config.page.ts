@@ -68,4 +68,19 @@ export class ConfigPage implements OnInit {
     this.router.navigate(['']);
     console.log('deslogou');
   }
+
+  goToProfile() {
+    if(localStorage.getItem('userToken')) {
+      this.router.navigate(['/profile']);
+    } else {
+      this.router.navigate(['/config']);
+    }
+  }
+  goToFriends() {
+    if(localStorage.getItem('userToken')) {
+      this.router.navigate(['/friends']);
+    } else {
+      this.router.navigate(['/config']);
+    }
+  }
 }
