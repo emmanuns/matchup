@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkPostPermission'=> \App\Http\Middleware\CheckPostPermission::class,
         'checkCommentPermission'=> \App\Http\Middleware\CheckCommentPermission::class,
+        'checkUserPermission'=> \App\Http\Middleware\CheckUserPermission::class,
     ];
 }

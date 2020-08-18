@@ -38,9 +38,11 @@ Route::group(['middleware'=>'auth:api'], function(){
     Route::get('user/posts', 'UserController@viewPosts');
     Route::post('user/post', 'UserController@publishPost');
     Route::post('user/commentPost', 'UserController@commentPost');
+    Route::put('user/{id}', 'UserController@updateUser')->middleware('checkUserPermission');
     Route::put('user/follow/{following_id}', 'UserController@follow');
     Route::put('user/like/{post_id}', 'UserController@like');
-
+    Route::delete('user/{id}', 'UserController@deleteUser')->middleware('checkUserPermission');
+    
     // PostsController
     Route::put('post/{id}', 'PostController@updatePost')->middleware('checkPostPermission');
     Route::delete('post/{id}', 'PostController@deletePost')->middleware('checkPostPermission');
