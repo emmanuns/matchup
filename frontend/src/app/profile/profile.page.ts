@@ -25,6 +25,7 @@ class Post {
 export class ProfilePage implements OnInit {
   profile: Profile[];
   profileId = this.activatedRoute.snapshot.paramMap.get('id');
+  showFollowButton: boolean;
  
   @Input() post;
 
@@ -34,8 +35,8 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.profile = [
       {
-        photo:"../../assets/jose.jpg",
-        username: "thekiller",
+        photo:"",
+        username: "",
         following: 127,
         followers: 213,
       }];
@@ -57,7 +58,8 @@ export class ProfilePage implements OnInit {
         photo: "../../assets/jose.jpg",
         username: "thekiller",
       }];
-      this.getUser();
+    this.getUser();
+    this.showFollowButton = localStorage.getItem('userToken') ? true : false;
   }
 
   getUser() {
@@ -66,6 +68,17 @@ export class ProfilePage implements OnInit {
         console.log(res);
         this.profile[0].username = res.username;
         this.profile[0].photo = res.photo;
+      }
+    );
+  }
+
+  follow() {
+    this.userService.userFollowing(this.profileId).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }

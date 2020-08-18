@@ -17,7 +17,7 @@
     <div class="info">
       <h3>Following {{profile.following}}</h3>
       <h3>Followers {{profile.followers}}</h3>
-      <ion-button type="button" shape="round">Seguir</ion-button>
+      <ion-button *ngIf="showFollowButton" (click)="follow()" type="button" shape="round">Seguir</ion-button>
     </div>
   </ion-card>
 
