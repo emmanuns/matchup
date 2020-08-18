@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Http\Requests\UserRequest;
 use App\Post;
+use App\Notifications\Register;
 use Auth;
 
 class User extends Authenticatable
@@ -91,6 +92,7 @@ class User extends Authenticatable
         $this->gender = $request->gender;
         $this->admin = false;
         $this->save();
+        $this->notify(new Register($this));
     }
 
     public function updateUser(UserRequest $request, $id)

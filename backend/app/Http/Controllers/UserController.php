@@ -86,4 +86,34 @@ class UserController extends Controller
         
         return response()->json($posts, 200);
     }
+
+    public function getMyFollowers()
+    {
+        $auth_user = Auth::user();
+        $user = User::showUser($auth_user->id);
+        $followers = $user->followers;
+        return response()->json($followers, 200);
+    }
+
+    public function getMyFollowings()
+    {
+        $auth_user = Auth::user();
+        $user = User::showUser($auth_user->id);
+        $followings = $user->following;
+        return response()->json($followings, 200);
+    }
+
+    public function getFollowers($id)
+    {
+        $user = User::showUser($id);
+        $followers = $user->followers;
+        return response()->json($followers, 200);
+    }
+
+    public function getFollowings($id)
+    {
+        $user = User::showUser($id);
+        $followings = $user->following;
+        return response()->json($followings, 200);
+    }
 }

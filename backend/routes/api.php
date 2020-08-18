@@ -22,7 +22,7 @@ Route::get('post/{id}/likes', 'PostController@showLikes');
 Route::get('post/{id}/likes/users', 'PostController@showUsersLikes');
 
 //User Controller
-Route::get('user/{id}', 'UserController@showUser');
+Route::get('user/profile/{id}', 'UserController@showUser');
 
 //
 // Authenticated Routes
@@ -36,6 +36,10 @@ Route::group(['middleware'=>'auth:api'], function(){
     
     //UserController
     Route::get('user/posts', 'UserController@viewPosts');
+    Route::get('user/followers', 'UserController@getMyFollowers');
+    Route::get('user/following', 'UserController@getMyFollowings');
+    Route::get('user/{id}/followers', 'UserController@getFollowers');
+    Route::get('user/{id}/following', 'UserController@getFollowings');
     Route::post('user/post', 'UserController@publishPost');
     Route::post('user/commentPost', 'UserController@commentPost');
     Route::put('user/{id}', 'UserController@updateUser')->middleware('checkUserPermission');
