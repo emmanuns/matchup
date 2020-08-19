@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment mode="md" value="follow">
-      <ion-segment-button value="following" *ngIf="auth" (click)="toggleMode()">
+  <ion-segment mode="md" value="following">
+      <ion-segment-button value="following" (click)="userFollowing()">
         <ion-label>Seguindo</ion-label>
       </ion-segment-button>
       <ion-segment-button value="followers" (click)="userFollowers()">
@@ -17,4 +17,12 @@
       </ion-segment-button>
   </ion-segment>
  
+  <div>
+    <ion-card *ngFor="let user of users">
+      <img class="photo" [src]="user.photo"/>
+      <ion-card-title class="name">{{user.username}}</ion-card-title>
+    
+    </ion-card>
+  </div>
+
 </ion-content>

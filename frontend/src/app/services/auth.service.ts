@@ -30,4 +30,9 @@ export class AuthService {
     localStorage.removeItem('userToken');
     return this.http.get(this.apiUrl + "logout", this.httpHeaders);
   }
+
+  getDetails(): Observable<any> {
+    this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
+    return this.http.get(this.apiUrl + "getUserDetails", this.httpHeaders);
+  }
 }

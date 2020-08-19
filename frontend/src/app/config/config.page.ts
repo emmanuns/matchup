@@ -3,13 +3,6 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 
-class Profile {
-  photo: string;
-  username: string;
-  following: number;
-  followers: number;
-
-}
 
 @Component({
   selector: 'app-config',
@@ -17,20 +10,15 @@ class Profile {
   styleUrls: ['./config.page.scss'],
 })
 export class ConfigPage implements OnInit {
-  profile: Profile[];
+  
+  profile;
+  
 
   constructor(public authService: AuthService,
               public router: Router,
               public alertController: AlertController) { }
 
   ngOnInit() {
-    this.profile = [
-      {
-        photo:"../../assets/jose.jpg",
-        username: "thekiller",
-        following: 127,
-        followers: 213,
-      }];
   }
 
   async presentAlertConfirmLogout() {

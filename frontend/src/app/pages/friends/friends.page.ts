@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service'; 
 
 @Component({
   selector: 'app-friends',
@@ -7,29 +8,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendsPage implements OnInit {
 
-  followMode: boolean = false;
+  followMode: boolean = true;
+  users: any;
 
-  constructor() { }
+  constructor(public userService: UserService) { }
 
   ngOnInit() {
     this.userFollowing();
-    this.userFollowers();
-  }
-
-  toggleFollow() {
-    this.followMode = true;
-  }
-  
-  untoggleFollow(){
-    this.followMode = false;
-  }
-
-  userFollowing(){
 
   }
 
   userFollowers(){
+    this.userService.getUserFollowers().subscribe(
+      (res)=>{
+        console.log(res);
+        this.users=res;
+      },(err)=>{
+        console.log(err);
+      });
+  }
 
+  userFollowing(){
+    this.userService.getUserFollowing().subscribe(
+      (res)=>{
+        console.log(res);
+        this.users=res;
+      },(err)=>{
+        console.log(err);
+      });
   }
   
 

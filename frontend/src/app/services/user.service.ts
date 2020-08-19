@@ -20,4 +20,16 @@ export class UserService {
   getUser(id): Observable<any> {
     return this.http.get(this.apiUrl + 'user/' + id);
   }
+
+  getUserFollowers(): Observable<any> {
+    this.httpHeaders.headers["Authorization"]= "Bearer " + localStorage.getItem('userToken');
+    return this.http.get(this.apiUrl + 'user/followers', this.httpHeaders );
+  }
+  
+  getUserFollowing(): Observable<any> {
+    this.httpHeaders.headers["Authorization"]= "Bearer " + localStorage.getItem('userToken');
+    return this.http.get(this.apiUrl + 'user/following', this.httpHeaders );
+  }
+
+
 }
