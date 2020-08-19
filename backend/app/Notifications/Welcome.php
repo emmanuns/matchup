@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Register extends Notification
+class Welcome extends Notification
 {
     use Queueable;
 
@@ -40,12 +40,11 @@ class Register extends Notification
      */
     public function toMail($notifiable)
     {
-        $user = $notifiable;
         return (new MailMessage)
                     ->greeting('Olá,')
-                    ->line('Por favor, confirme seu cadastro no MatchUp!')
-                    ->action('Confirmar cadastro', url('api/confirmAccount' . '/' . $user->id))
-                    ->line('Obrigado por usar nossa aplicação!');
+                    ->line('Seja bem vindo ao MatchUp! Seu cadastro foi realizado com sucesso.')
+                    ->action('Começar a usar o MatchUp', url('/'))
+                    ->line('Obrigado por utilizar nossa aplicação!');
     }
 
     /**

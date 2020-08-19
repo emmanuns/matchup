@@ -4,6 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //
+// Mail Routes
+//
+Route::get('confirmAccount/{id}', 'UserController@confirmAccount');
+
+//
 // Passport Routes
 //
 
