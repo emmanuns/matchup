@@ -12,7 +12,7 @@ import { UserService } from '../services/user.service';
 })
 export class ConfigPage implements OnInit {
   
-  profile;
+  profile = {};
   
 
   constructor(public authService: AuthService,
@@ -81,8 +81,7 @@ export class ConfigPage implements OnInit {
     this.userService.getDetails().subscribe(
       (res) => {
         console.log(res);
-        this.profile.username = res.Success.username;
-        this.profile.photo = res.Success.photo;
+        this.profile = res.Success;
       },
       (err) => {
         console.log(err);
