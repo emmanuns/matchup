@@ -1,13 +1,18 @@
 <ion-card>
   <ion-card-header>
       <ion-item lines="full">
-        <ion-avatar slot="start">
+        <ion-avatar slot="start" [routerLink]="['/profile', this.post.user_id]">
           <ion-img [src]=photo></ion-img>
         </ion-avatar>
         <ion-col>
         <ion-label>{{username}}</ion-label>
         <ion-card-title>{{post.tags}}</ion-card-title>
         </ion-col>
+        <ion-button *ngIf="loggedHasPermission"
+                    (click)="presentPostsOp($event)"
+                    fill="clear" slot="end">
+          <ion-icon name="chevron-down"></ion-icon>
+        </ion-button>
       </ion-item>
   </ion-card-header>
   <ion-card-content>
@@ -20,7 +25,7 @@
         <ion-button [routerLink]="['/comments', post.id]">
           <ion-icon name="chatbox-ellipses-outline"></ion-icon>
         </ion-button>
-        <ion-button>
+        <ion-button (click)="likePost()">
           <ion-icon name="heart-outline"></ion-icon>
         </ion-button>
       </ion-buttons>

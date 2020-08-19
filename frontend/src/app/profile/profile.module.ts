@@ -8,6 +8,8 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
 
+import { CardPostsComponent } from '../components/card-posts/card-posts.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +18,6 @@ import { ProfilePage } from './profile.page';
     ProfilePageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [ProfilePage]
+  declarations: [ProfilePage, CardPostsComponent]
 })
 export class ProfilePageModule {}

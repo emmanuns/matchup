@@ -19,6 +19,13 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
+    public function confirmAccount($id)
+    {
+        $user = User::showUser($id);
+        $user->confirmAccount($user,$id);
+        return redirect('/');
+    }
+
     public function showUser($id)
     {
         $user = User::showUser($id);
@@ -51,6 +58,10 @@ class UserController extends Controller
         $response = $following->follow($following_id, $follower_id);
         return response()->json($response);
     }
+
+    //
+    // Funções de posts, comments e likes 
+    //
 
     public function publishPost(PostRequest $request)
     {

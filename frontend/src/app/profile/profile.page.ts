@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 class Profile {
   photo: string;
@@ -23,16 +24,19 @@ class Post {
 })
 export class ProfilePage implements OnInit {
   profile: Profile[];
+  profileId = this.activatedRoute.snapshot.paramMap.get('id');
+  showFollowButton: boolean;
  
   @Input() post;
 
-  constructor() { }
+  constructor(public userService: UserService,
+              public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.profile = [
       {
-        photo:"../../assets/jose.jpg",
-        username: "thekiller",
+        photo:"",
+        username: "",
         following: 127,
         followers: 213,
       }];
@@ -54,7 +58,28 @@ export class ProfilePage implements OnInit {
         photo: "../../assets/jose.jpg",
         username: "thekiller",
       }];
-      
+    this.getUser();
+    this.showFollowButton = localStorage.getItem('userToken') ? true : false;
   }
 
+  getUser() {
+    this.userService.getUser(this.profileId).subscribe(
+      (res) => {
+        console.log(res);
+        this.profile[0].username = res.username;
+        this.profile[0].photo = res.photo;
+      }
+    );
+  }
+
+  follow() {
+    this.userService.userFollowing(this.profileId).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 }

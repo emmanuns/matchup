@@ -9,7 +9,9 @@ use Laravel\Passport\HasApiTokens;
 use App\Http\Requests\UserRequest;
 use App\Post;
 use App\Notifications\Register;
+use App\Notifications\Welcome;
 use Auth;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -92,7 +94,14 @@ class User extends Authenticatable
         $this->gender = $request->gender;
         $this->admin = false;
         $this->save();
+        $this->notify(new Welcome($this));
         $this->notify(new Register($this));
+    }
+
+    public function confirmAccount()
+    {
+        $this->email_verified_at = Carbon::now();
+        $this->save();
     }
 
     public function updateUser(UserRequest $request, $id)

@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -7,7 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'profile',
+    path: 'profile/:id',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
@@ -37,12 +38,11 @@ const routes: Routes = [
   {
     path: 'commenting/:id',
     loadChildren: () => import('./pages/commenting/commenting.module').then( m => m.CommentingPageModule)
-  },  {
+  },
+  {
     path: 'friends',
     loadChildren: () => import('./pages/friends/friends.module').then( m => m.FriendsPageModule)
   }
-
-
 ];
 @NgModule({
   imports: [
