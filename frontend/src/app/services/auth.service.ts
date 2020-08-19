@@ -28,6 +28,7 @@ export class AuthService {
   logout(): Observable<any> {
     this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
     localStorage.removeItem('userToken');
+    localStorage.removeItem('userId');
     return this.http.get(this.apiUrl + "logout", this.httpHeaders);
   }
 }

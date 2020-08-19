@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 class Profile {
   photo: string;
@@ -20,17 +21,19 @@ export class ConfigPage implements OnInit {
   profile: Profile[];
 
   constructor(public authService: AuthService,
+              public userService: UserService,
               public router: Router,
               public alertController: AlertController) { }
 
   ngOnInit() {
     this.profile = [
       {
-        photo:"../../assets/jose.jpg",
-        username: "thekiller",
+        photo:"",
+        username: "",
         following: 127,
         followers: 213,
       }];
+    this.getUserDetails();
   }
 
   async presentAlertConfirmLogout() {
@@ -76,11 +79,25 @@ export class ConfigPage implements OnInit {
       this.router.navigate(['/config']);
     }
   }
+
   goToFriends() {
     if(localStorage.getItem('userToken')) {
       this.router.navigate(['/friends']);
     } else {
       this.router.navigate(['/config']);
     }
+  }
+
+  getUserDetails() {
+    this.userService.getDetails().subscribe(
+      (res) => {
+        console.log(res);
+        this.profile[0].username = res.Success.username;
+        this.profile[0].photo = res.Success.photo;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }
