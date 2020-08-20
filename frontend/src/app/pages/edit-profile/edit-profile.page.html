@@ -1,9 +1,36 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>edit-profile</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content color="primary">
+  <div class="edit">
+    <form [formGroup]="editForm" (ngSubmit)="submitEdit(editForm)">
+      <img [src]="photo">
+      <ion-fab-button (click)="takePicture()">
+        <ion-icon name="camera-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-item>
+        <ion-label position="floating">Nome de usuário</ion-label>
+          <ion-input type="text" inputmode="text" formControlName="username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Gênero</ion-label>
+        <ion-select formControlName="gender" cancel-text="Cancelar">
+          <ion-select-option value="masculine">Masculino</ion-select-option>
+      <ion-item>
+          <ion-select-option value="feminine">Feminino</ion-select-option>
+      </ion-item>
+      <ion-item>
+          <ion-select-option value="other">Outro</ion-select-option>
+      </ion-item>
+        </ion-select>
+      </ion-item>
+      <ion-button type="submit">Salvar</ion-button>
+    </form>
+  </div>
 </ion-content>

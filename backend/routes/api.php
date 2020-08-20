@@ -58,6 +58,6 @@ Route::group(['middleware'=>'auth:api'], function(){
 
     //CommentsController
     Route::put('commentPost/{id}', 'CommentPostController@updateCommentPost')->middleware('checkCommentPermission');
-    Route::delete('commentPost/{id}', 'CommentPostController@deleteCommentPost')->middleware('checkCommentAdminPermission');
+    Route::delete('commentPost/{id}', 'CommentPostController@deleteCommentPost')->middleware('checkCommentPermission');
     
 });

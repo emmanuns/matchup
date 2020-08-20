@@ -10,6 +10,12 @@
 <ion-content>
   <ion-card *ngFor="let profile of profile">
   
+    <div clas="edit">
+      <ion-buttons slot="end">
+        <ion-button type="submit" (click)="gotoEdit()">
+        </ion-button>"
+      </ion-buttons>
+    </div>
     <div class="user">
       <img class="photo" [src]="profile.photo"/>
       <ion-card-title class="name">{{profile.username}}</ion-card-title>

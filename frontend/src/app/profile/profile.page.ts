@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 class Profile {
@@ -30,6 +30,7 @@ export class ProfilePage implements OnInit {
   @Input() post;
 
   constructor(public userService: UserService,
+              public router: Router,
               public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -70,6 +71,14 @@ export class ProfilePage implements OnInit {
         this.profile[0].photo = res.photo;
       }
     );
+  }
+
+  goToEdit() {
+    if(localStorage.getItem('userToken')) {
+      this.router.navigate(['/edit-profile']);
+    } else {
+      this.router.navigate(['/profile']);
+    }
   }
 
   follow() {

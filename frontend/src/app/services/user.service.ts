@@ -47,5 +47,10 @@ export class UserService {
     return this.http.get(this.apiUrl + 'user/following', this.httpHeaders );
   }
 
+  updateUser(id): Observable<any> {
+    this.httpHeaders.headers["Authorization"]=
+    "Bearer " + localStorage.getItem('userToken');
+    return this.http.put(this.apiUrl + 'user/{id}' + id, this.httpHeaders );
+  }
 
 }
