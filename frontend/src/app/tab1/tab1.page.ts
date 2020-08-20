@@ -8,13 +8,23 @@ import { PostService } from '../services/post.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  showAll: boolean;
   allPosts = [];
   posts = [];
 
   constructor(public router: Router,
               public postService: PostService) {
     // this.getPosts(20);
-    this.getAllPosts();
+  }
+
+  ionViewWillEnter() {
+    this.showAll = localStorage.getItem('userToken') ? false: true ;
+    console.log(this.showAll);
+    if (this.showAll) {
+      this.getAllPosts();
+    } else {
+      this.getFollowingPosts();
+    }
   }
 
   getAllPosts() {
@@ -29,8 +39,23 @@ export class Tab1Page {
     );
   }
 
+  getFollowingPosts() {
+    this.allPosts = []
+    this.postService.userViewPosts().subscribe(
+      (res) => {
+        console.log(res);
+        for (let array of res) {
+          this.allPosts.push(array[0]);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  
   refreshHome(event) {
-    this.getAllPosts();
+    this.ionViewWillEnter();
     event.target.complete();
     // console.log(this.allPosts);
   }

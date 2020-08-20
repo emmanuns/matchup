@@ -18,11 +18,14 @@ export class CommentsPage implements OnInit {
               public activatedRoute: ActivatedRoute,
               public postService: PostService) {
     // this.getComments(5);
-    this.getPost();
-    this.getComments();
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.getPost();
+    this.getComments();
   }
 
   getPost() {
@@ -53,7 +56,7 @@ export class CommentsPage implements OnInit {
   }
 
   refreshComments(event) {
-    this.getComments();
+    this.ionViewWillEnter();
     event.target.complete();
   }
 
