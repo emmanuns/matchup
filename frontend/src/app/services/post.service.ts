@@ -35,6 +35,11 @@ export class PostService {
     return this.http.post(this.apiUrl + 'user/post', data, this.httpHeaders);
   }
 
+  editingPost(id, data): Observable<any> {
+    this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
+    return this.http.put(this.apiUrl + 'post/' + id, data, this.httpHeaders);
+  }
+
   deletePost(id): Observable<any> {
     this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
     return this.http.delete(this.apiUrl + 'post/' + id, this.httpHeaders);

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AlertController, PopoverController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
 
 @Component({
@@ -9,9 +10,11 @@ import { PostService } from '../../services/post.service';
 })
 export class PostsOpComponent implements OnInit {
   @Input("postId") postId;
+  @Input("isSameUser") isSameUser;
 
   constructor(public alertController: AlertController,
               public popoverController: PopoverController,
+              public router: Router,
               public postService: PostService) { }
 
   ngOnInit() {
@@ -50,4 +53,8 @@ export class PostsOpComponent implements OnInit {
     await alert.present();
   }
 
+  goEdit() {
+    this.popoverController.dismiss();
+    this.router.navigate(['/editing-post', this.postId]);
+  }
 }

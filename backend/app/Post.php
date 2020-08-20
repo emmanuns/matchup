@@ -46,7 +46,7 @@ class Post extends Model
         $this->save();
     }
 
-    public function updatePost(PostRequest $request, $id)
+    public function updatePost(PostRequest $request)
     {       
         if ($request->text) {
             $this->text = $request->text;
