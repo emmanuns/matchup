@@ -11,10 +11,6 @@
   <div class="center">
     <img class="logo" src="../assets/logomax.svg" />
     <form [formGroup]="registerForm" (ngSubmit)="submitRegister(registerForm)">
-      <img [src]="photo">
-      <ion-fab-button (click)="takePicture()">
-        <ion-icon name="camera-outline"></ion-icon>
-      </ion-fab-button>
       <ion-item>
         <ion-label position="floating">Nome de usuário</ion-label>
           <ion-input type="text" inputmode="text" formControlName="username"></ion-input>

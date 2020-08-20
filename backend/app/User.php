@@ -89,7 +89,7 @@ class User extends Authenticatable
         $this->username = $request->username;
         $this->email = $request->email;
         $this->password = bcrypt($request->password);
-        $this->photo = $request->photo;
+        $this->image = $request->image;
         $this->nicks = $request->nicks;
         $this->gender = $request->gender;
         $this->admin = false;
