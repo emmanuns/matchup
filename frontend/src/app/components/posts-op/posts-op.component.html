@@ -1,4 +1,4 @@
 <ion-list>
-  <ion-item (click)="goEdit()" button>Editar</ion-item>
+  <ion-item [disabled]="!isSameUser" (click)="goEdit()" button>Editar</ion-item>
   <ion-item lines="none" (click)="presentConfirmDelete()" button>Deletar</ion-item>
 </ion-list>

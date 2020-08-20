@@ -10,6 +10,7 @@ import { PostService } from '../../services/post.service';
 })
 export class PostsOpComponent implements OnInit {
   @Input("postId") postId;
+  @Input("isSameUser") isSameUser;
 
   constructor(public alertController: AlertController,
               public popoverController: PopoverController,

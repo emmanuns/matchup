@@ -29,6 +29,7 @@ export class AuthService {
     this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
     localStorage.removeItem('userToken');
     localStorage.removeItem('userId');
+    localStorage.removeItem('admin');
     return this.http.get(this.apiUrl + "logout", this.httpHeaders);
   }
 

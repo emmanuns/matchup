@@ -34,6 +34,7 @@ export class LoginPage implements OnInit {
         if (res.Success) {
           localStorage.setItem('userToken', res.Success.token);
           localStorage.setItem('userId', res.user.id);
+          localStorage.setItem('admin', res.user.admin);
           this.router.navigate(['']);
         } else {
           this.presentToastFail();

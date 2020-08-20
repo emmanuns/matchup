@@ -14,10 +14,14 @@ export class CardPostsComponent implements OnInit {
   photo: any;
   username: any;
   loggedId = parseInt(localStorage.getItem('userId'));
+  admin = parseInt(localStorage.getItem('admin'));
+  isAdmin: boolean = false;
+  isSameUser: boolean = false;
   loggedHasPermission: boolean = false;
 
   constructor(public userService: UserService,
               public popoverController: PopoverController) {
+    this.isAdmin = this.admin === 1;
   }
 
   ngOnInit() {
@@ -29,9 +33,11 @@ export class CardPostsComponent implements OnInit {
       (res) => {
         // console.log(res);
         this.posterId = res.id;
-        this.loggedHasPermission = this.loggedId === res.id ? true : false;
         this.photo = res.photo;
         this.username = res.username;
+
+        this.isSameUser = this.loggedId === res.id;
+        this.loggedHasPermission = (this.isSameUser || this.isAdmin);
       },
       (err) => {
         console.log(err);
@@ -44,6 +50,7 @@ export class CardPostsComponent implements OnInit {
       component: PostsOpComponent,
       componentProps: {
         postId: this.post.id,
+        isSameUser: this.isSameUser,
       },
       event: ev,
       translucent: true
