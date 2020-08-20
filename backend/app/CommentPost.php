@@ -48,7 +48,7 @@ class CommentPost extends Model
         $this->save();
     }
 
-    public function showCommentPost($id)
+    public static function showCommentPost($id)
     {
         $comment = CommentPost::findOrFail($id);
         return $comment;
