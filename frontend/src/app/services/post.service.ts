@@ -55,4 +55,9 @@ export class PostService {
     this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
     return this.http.post(this.apiUrl + 'user/commentPost', data, this.httpHeaders);
   }
+
+  deleteComment(id): Observable<any> {
+    this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
+    return this.http.delete(this.apiUrl + 'commentPost/' + id, this.httpHeaders);
+  }
 }
