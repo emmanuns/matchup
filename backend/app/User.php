@@ -115,8 +115,8 @@ class User extends Authenticatable
         if ($request->password) {
             $this->password = bcrypt($request->password);
         }
-        if ($request->photo) {
-            $this->photo = $request->photo;
+        if ($request->image) {
+            $this->image = $request->image;
         }
         if ($request->nicks) {
             $this->nicks = $request->nicks;

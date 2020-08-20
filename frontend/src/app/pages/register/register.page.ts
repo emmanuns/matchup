@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
+import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -10,17 +12,21 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  registerForm: FormGroup;
   
+  registerForm: FormGroup;
+  photo: SafeResourceUrl;
+
   constructor(public formBuilder: FormBuilder,
               public authService: AuthService,
               public router: Router,
-              public toastController: ToastController) {
+              public toastController: ToastController,
+              public sanitizer: DomSanitizer) {
     this.registerForm = this.formBuilder.group({
       username: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
       gender: [null, [Validators.required]],
+      image: [null],
     });
   }
 
@@ -34,6 +40,17 @@ export class RegisterPage implements OnInit {
     });
 
     toast.present();
+  }
+
+  async takePicture() {
+    const image = await Plugins.Camera.getPhoto({
+      quality: 100,
+      allowEditing: true,
+      saveToGallery: true,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Camera
+    });
+    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
   }
 
   submitRegister(form) {
