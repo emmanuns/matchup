@@ -28,6 +28,7 @@ Route::get('post/{id}/likes/users', 'PostController@showUsersLikes');
 
 //User Controller
 Route::get('user/profile/{id}', 'UserController@showUser');
+Route::get('user/posts/{id}', 'UserController@getPosts');
 
 //
 // Authenticated Routes
