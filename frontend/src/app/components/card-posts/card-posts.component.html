@@ -18,15 +18,13 @@
   <ion-card-content>
     {{post.text}}
     <ion-toolbar>
-      <ion-buttons class="ion-justify-content-between">
-        <ion-button>
-          <ion-icon name="bookmark-outline"></ion-icon>
-        </ion-button>
+      <ion-buttons class="ion-justify-content-around">
         <ion-button [routerLink]="['/comments', post.id]">
           <ion-icon name="chatbox-ellipses-outline"></ion-icon>
         </ion-button>
         <ion-button (click)="likePost()">
-          <ion-icon name="heart-outline"></ion-icon>
+          <ion-icon *ngIf="shouldFillHeart; else elseBlock" name="heart"></ion-icon>
+          <ng-template #elseBlock><ion-icon name="heart-outline"></ion-icon></ng-template>
           <div class="likes">{{likes}}</div>
         </ion-button>
       </ion-buttons>

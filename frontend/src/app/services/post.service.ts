@@ -58,6 +58,10 @@ export class PostService {
     return this.http.get(this.apiUrl + 'post/' + id + '/likes', this.httpHeaders);
   }
 
+  getUsersLiked(id): Observable<any> {
+    return this.http.get(this.apiUrl + 'post/' + id + '/likes/users');
+  }
+
   listPosts(): Observable<any> {
     this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
     return this.http.get(this.apiUrl + 'post/', this.httpHeaders);

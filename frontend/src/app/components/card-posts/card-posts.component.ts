@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, ToastController } from '@ionic/angular';
 import { PostsOpComponent } from '../posts-op/posts-op.component';
 import { PostService } from 'src/app/services/post.service';
 
@@ -20,10 +20,12 @@ export class CardPostsComponent implements OnInit {
   isAdmin: boolean = false;
   isSameUser: boolean = false;
   loggedHasPermission: boolean = false;
+  shouldFillHeart: boolean = false;
   likes: number;
 
   constructor(public userService: UserService,
               public popoverController: PopoverController,
+              public toastController: ToastController,
               public postService: PostService) {
     this.isAdmin = this.admin === 1;
   }
@@ -31,6 +33,7 @@ export class CardPostsComponent implements OnInit {
   ngOnInit() {
     this.getPoster();
     this.showLikes();
+    this.getUsersLikes();
   }
 
   getPoster() {
@@ -70,6 +73,7 @@ export class CardPostsComponent implements OnInit {
         (res) => {
           console.log(res);
           this.showLikes();
+          this.getUsersLikes();
         },
         (err) => {
           console.log(err);
@@ -77,6 +81,7 @@ export class CardPostsComponent implements OnInit {
       );
     } else {
       console.log('não autorizado');
+      this.presentUnauthorizedToast();
     }
   }
 
@@ -89,5 +94,31 @@ export class CardPostsComponent implements OnInit {
       (err)=> {
         console.log(err);
       });
+  }
+
+  getUsersLikes() {
+    // Método extremamente ineficiente de veficar se usuário logado curtiu o post
+    this.postService.getUsersLiked(this.post.id).subscribe(
+      (res) => {
+        console.log(res);
+        this.shouldFillHeart = false;
+        for (let user of res) {
+          if (user.id === this.loggedId) {
+            this.shouldFillHeart = true;
+          } 
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  async presentUnauthorizedToast() {
+    const toast = await this.toastController.create({
+      message: 'Faça login para curtir o post!',
+      duration: 2000
+    });
+    toast.present();
   }
 }
