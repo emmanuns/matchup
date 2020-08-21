@@ -26,7 +26,7 @@ class Post {
 export class ProfilePage implements OnInit {
   profile: Profile[];
   posts = [];
-  loggedId = parseInt(localStorage.getItem('id'));
+  loggedId = parseInt(localStorage.getItem('userId'));
   profileId = this.activatedRoute.snapshot.paramMap.get('id');
   showFollowButton: boolean;
  
@@ -67,7 +67,7 @@ export class ProfilePage implements OnInit {
     let sameUser = parseInt(this.profileId) === this.loggedId;
     this.getUser();
     this.getPosts();
-    this.showFollowButton = (localStorage.getItem('userToken') && sameUser) ? true : false;
+    this.showFollowButton = (localStorage.getItem('userToken') && !sameUser) ? true : false;
   }
 
   getUser() {
