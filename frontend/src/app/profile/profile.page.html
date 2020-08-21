@@ -27,6 +27,11 @@
     </div>
   </ion-card>
 
+  <ion-list>
+    <div *ngFor="let post of posts">
+      <app-card-posts [post]="post"></app-card-posts>
+    </div>
+  </ion-list>
   <!-- <ion-card *ngFor="let post of post">
        <ion-card-header>
        <ion-item lines="full">
