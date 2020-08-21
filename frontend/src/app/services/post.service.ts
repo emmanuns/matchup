@@ -39,6 +39,10 @@ export class PostService {
     return this.http.post(this.apiUrl + 'user/post', data, this.httpHeaders);
   }
 
+  searchPosts(data): Observable<any> {
+    return this.http.post(this.apiUrl + 'postSearch', data);
+  }
+
   editingPost(id, data): Observable<any> {
     this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
     return this.http.put(this.apiUrl + 'post/' + id, data, this.httpHeaders);

@@ -25,6 +25,7 @@ Route::get('post/{id}', 'PostController@showPost');
 Route::get('post/{id}/comments', 'PostController@showComments');
 Route::get('post/{id}/likes', 'PostController@showLikes');
 Route::get('post/{id}/likes/users', 'PostController@showUsersLikes');
+Route::post('postSearch', 'PostController@searchPost');
 
 //User Controller
 Route::get('user/profile/{id}', 'UserController@showUser');
