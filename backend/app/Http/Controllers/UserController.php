@@ -87,12 +87,13 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $following = $user->following;
-        $posts = [];
-        $i = 0;
+        $posts = array();
 
         foreach ($following as $friend) {
-            $posts[$i]= $friend->posts;
-            $i++;
+            foreach($friend->posts as $post) {
+                array_push($posts, $post);
+                $tag = $post->tag;
+            }
         }
         
         return response()->json($posts, 200);

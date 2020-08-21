@@ -94,8 +94,8 @@ class User extends Authenticatable
         $this->gender = $request->gender;
         $this->admin = false;
         $this->save();
-        $this->notify(new Welcome($this));
-        $this->notify(new Register($this));
+        //$this->notify(new Welcome($this));
+        //$this->notify(new Register($this));
     }
 
     public function confirmAccount()

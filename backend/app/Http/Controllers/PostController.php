@@ -19,13 +19,17 @@ class PostController extends Controller
     public function showPost($id)
     {
         $post = Post::showPost($id);
+        $tag = $post->tag;
         return response()->json($post, 200);
     }
 
     public function listPosts()
     {
         $posts = Post::listPosts();
-        return response()->json([$posts], 200);
+        foreach($posts as $post) {
+            $tag = $post->tag;
+        }
+        return response()->json($posts, 200);
     } 
 
     public function updatePost(PostRequest $request, $id)
