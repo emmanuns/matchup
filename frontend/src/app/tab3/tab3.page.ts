@@ -9,6 +9,14 @@ import { Router } from '@angular/router';
 export class Tab3Page {
 
   constructor(public router: Router) {}
-
+ 
+  goToTags() {
+    if(localStorage.getItem('userToken')) {
+      this.router.navigate(['/tags']);
+    } else {
+      this.router.navigate(['/tab3']);
+   }
+  }
 }
+
 
