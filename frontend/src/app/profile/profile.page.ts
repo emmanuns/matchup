@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { PostService } from '../services/post.service';
 
 class Profile {
   photo: string;
@@ -24,12 +25,15 @@ class Post {
 })
 export class ProfilePage implements OnInit {
   profile: Profile[];
+  posts = [];
+  loggedId = parseInt(localStorage.getItem('id'));
   profileId = this.activatedRoute.snapshot.paramMap.get('id');
   showFollowButton: boolean;
  
   @Input() post;
 
   constructor(public userService: UserService,
+              public postService: PostService,
               public router: Router,
               public activatedRoute: ActivatedRoute) { }
 
@@ -59,8 +63,11 @@ export class ProfilePage implements OnInit {
         photo: "../../assets/jose.jpg",
         username: "thekiller",
       }];
+
+    let sameUser = parseInt(this.profileId) === this.loggedId;
     this.getUser();
-    this.showFollowButton = localStorage.getItem('userToken') ? true : false;
+    this.getPosts();
+    this.showFollowButton = (localStorage.getItem('userToken') && sameUser) ? true : false;
   }
 
   getUser() {
@@ -69,6 +76,18 @@ export class ProfilePage implements OnInit {
         console.log(res);
         this.profile[0].username = res.username;
         this.profile[0].photo = res.photo;
+      }
+    );
+  }
+
+  getPosts() {
+    this.postService.getUserPosts(this.profileId).subscribe(
+      (res) => {
+        console.log(res);
+        this.posts = res;
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }
