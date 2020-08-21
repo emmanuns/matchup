@@ -19,10 +19,10 @@
     {{post.text}}
     <ion-toolbar>
       <ion-buttons class="ion-justify-content-around">
-        <ion-button [routerLink]="['/comments', post.id]">
+        <ion-button color="primary" [routerLink]="['/comments', post.id]">
           <ion-icon name="chatbox-ellipses-outline"></ion-icon>
         </ion-button>
-        <ion-button (click)="likePost()">
+        <ion-button color="primary" (click)="likePost()">
           <ion-icon *ngIf="shouldFillHeart; else elseBlock" name="heart"></ion-icon>
           <ng-template #elseBlock><ion-icon name="heart-outline"></ion-icon></ng-template>
           <div class="likes">{{likes}}</div>
