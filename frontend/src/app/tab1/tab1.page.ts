@@ -36,8 +36,8 @@ export class Tab1Page {
   getAllPosts() {
     this.postService.getAllPosts().subscribe(
       (res) => {
-        this.allPosts = res[0];
-        // console.log(res);
+        this.allPosts = res;
+        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -50,9 +50,7 @@ export class Tab1Page {
     this.postService.userViewPosts().subscribe(
       (res) => {
         console.log(res);
-        for (let array of res) {
-          this.allPosts.push(array[0]);
-        }
+        this.allPosts = res;
       },
       (err) => {
         console.log(err);

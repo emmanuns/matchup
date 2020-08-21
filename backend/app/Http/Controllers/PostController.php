@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use Auth;
@@ -62,4 +63,9 @@ class PostController extends Controller
         return response()->json($post->userLikes, 200);
     }
 
+    public function searchPost(Request $request){
+        $search = $request->text;
+        $posts = Post::where('text','like', '%'.$search.'%')->orderBy('created_at', 'desc')->get();
+        return response()->json($posts, 200);
+    }
 }
