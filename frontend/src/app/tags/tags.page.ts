@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-tags',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TagsPage implements OnInit {
 
-  constructor() { }
+
+  constructor(public postService: PostService) { }
 
   ngOnInit() {
   }
 
+  listPosts(){
+    this.postService.listPosts().subscribe(
+      (res)=> {
+        this.listPosts = res;
+        console.log(res);
+      },
+      (err)=> {
+        console.log(err);
+      });
+  }
+  
 }
