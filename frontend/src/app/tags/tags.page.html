@@ -3,10 +3,16 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>tags</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="refreshHome($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <div *ngFor="let post of allPosts">
+      <app-card-posts [post]="post"></app-card-posts>
+    </div>
+  </ion-list>
 </ion-content>

@@ -7,22 +7,42 @@ import { PostService } from '../services/post.service';
   styleUrls: ['./tags.page.scss'],
 })
 export class TagsPage implements OnInit {
+  showAll: boolean;
+  allPosts = [];
+  posts = [];
 
-
-  constructor(public postService: PostService) { }
+  constructor(public postService: PostService) { 
+    this.showAll = localStorage.getItem('userToken') ? false: true ;
+  }
 
   ngOnInit() {
   }
 
-  listPosts(){
-    this.postService.listPosts().subscribe(
-      (res)=> {
-        this.listPosts = res;
+  ionViewWillEnter() {
+    if(!localStorage.getItem('userToken')) {
+      this.showAll = true;
+    }
+    console.log(this.showAll);
+    if (this.showAll) {
+      this.getAllPosts();
+    } 
+  }
+
+  getAllPosts() {
+    this.postService.getAllPosts().subscribe(
+      (res) => {
+        this.allPosts = res;
         console.log(res);
       },
-      (err)=> {
+      (err) => {
         console.log(err);
-      });
+      }
+    );
+  }
+
+  refreshHome(event) {
+    this.ionViewWillEnter();
+    event.target.complete()
   }
   
 }
