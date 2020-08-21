@@ -1,6 +1,7 @@
 
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'config',
-    loadChildren: () => import('./config/config.module').then( m => m.ConfigPageModule)
+    loadChildren: () => import('./config/config.module').then( m => m.ConfigPageModule),
+   canActivate: [AuthGuard]
   },
   {
     path: 'search',
@@ -29,7 +31,8 @@ const routes: Routes = [
   },
   {
     path: 'posting',
-    loadChildren: () => import('./pages/posting/posting.module').then( m => m.PostingPageModule)
+    loadChildren: () => import('./pages/posting/posting.module').then( m => m.PostingPageModule),
+   canActivate: [AuthGuard]
   },
   {
     path: 'comments/:id',
@@ -37,18 +40,22 @@ const routes: Routes = [
   },
   {
     path: 'commenting/:id',
-    loadChildren: () => import('./pages/commenting/commenting.module').then( m => m.CommentingPageModule)
+    loadChildren: () => import('./pages/commenting/commenting.module').then( m => m.CommentingPageModule),
+   canActivate: [AuthGuard]
   },
   {
     path: 'friends',
-    loadChildren: () => import('./pages/friends/friends.module').then( m => m.FriendsPageModule)
+    loadChildren: () => import('./pages/friends/friends.module').then( m => m.FriendsPageModule),
+   canActivate: [AuthGuard]
   },
   {
     path: 'editing-post/:id',
-    loadChildren: () => import('./pages/editing-post/editing-post.module').then( m => m.EditingPostPageModule)
+    loadChildren: () => import('./pages/editing-post/editing-post.module').then( m => m.EditingPostPageModule),
+   canActivate: [AuthGuard]
   },  {
     path: 'edit-profile',
-    loadChildren: () => import('./pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+    loadChildren: () => import('./pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'tags',
