@@ -13,7 +13,7 @@ import { UserService } from '../services/user.service';
 export class ConfigPage implements OnInit {
   
   profile = {};
-  
+  loggedId = parseInt(localStorage.getItem('userId'));
 
   constructor(public authService: AuthService,
               public userService: UserService,
@@ -63,7 +63,7 @@ export class ConfigPage implements OnInit {
 
   goToProfile() {
     if(localStorage.getItem('userToken')) {
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/profile', this.loggedId]);
     } else {
       this.router.navigate(['/config']);
     }

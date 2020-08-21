@@ -69,6 +69,7 @@ export class CardPostsComponent implements OnInit {
       this.userService.userLike(this.post.id).subscribe(
         (res) => {
           console.log(res);
+          this.showLikes();
         },
         (err) => {
           console.log(err);
