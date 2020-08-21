@@ -24,7 +24,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => now(),
         'admin' => false,
         'nicks' => $faker->name,
-        'photo' => $faker->name,
+        'image' => $faker->name,
         'gender'=>$faker->randomElement(['feminine', 'masculine', 'other']),
         'password' => bcrypt('senha123'), // password
         'remember_token' => Str::random(10),

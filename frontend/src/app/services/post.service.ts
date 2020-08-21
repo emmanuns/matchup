@@ -45,6 +45,11 @@ export class PostService {
     return this.http.delete(this.apiUrl + 'post/' + id, this.httpHeaders);
   }
 
+  showLikes(id): Observable<any> {
+    this.httpHeaders.headers["Authorization"] = "Bearer " + localStorage.getItem('userToken');
+    return this.http.get(this.apiUrl + 'post/' + id + '/likes', this.httpHeaders);
+  }
+
   // Métodos para comentários
 
   getCommentsFromPost(id): Observable<any> {

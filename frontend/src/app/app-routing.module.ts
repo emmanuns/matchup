@@ -49,6 +49,10 @@ const routes: Routes = [
   },  {
     path: 'edit-profile',
     loadChildren: () => import('./pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
+  {
+    path: 'tags',
+    loadChildren: () => import('./tags/tags.module').then( m => m.TagsPageModule)
   }
 
 ];

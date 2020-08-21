@@ -2,12 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { PopoverController } from '@ionic/angular';
 import { PostsOpComponent } from '../posts-op/posts-op.component';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-card-posts',
   templateUrl: './card-posts.component.html',
   styleUrls: ['./card-posts.component.scss'],
 })
+
 export class CardPostsComponent implements OnInit {
   @Input() post;
   posterId: any;
@@ -18,14 +20,17 @@ export class CardPostsComponent implements OnInit {
   isAdmin: boolean = false;
   isSameUser: boolean = false;
   loggedHasPermission: boolean = false;
+  likes: number;
 
   constructor(public userService: UserService,
-              public popoverController: PopoverController) {
+              public popoverController: PopoverController,
+              public postService: PostService) {
     this.isAdmin = this.admin === 1;
   }
 
   ngOnInit() {
     this.getPoster();
+    this.showLikes();
   }
 
   getPoster() {
@@ -72,5 +77,16 @@ export class CardPostsComponent implements OnInit {
     } else {
       console.log('não autorizado');
     }
+  }
+
+  showLikes() {
+    this.postService.showLikes(this.post.id).subscribe(
+      (res)=> {
+        console.log(res);
+        this.likes=res;
+      },
+      (err)=> {
+        console.log(err);
+      });
   }
 }
